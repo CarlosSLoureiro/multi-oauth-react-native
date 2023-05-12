@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Text,
   Link,
@@ -11,8 +11,13 @@ import {
   extendTheme,
   VStack,
   Box,
+  Button,
 } from "native-base";
 import NativeBaseIcon from "./components/NativeBaseIcon";
+import { Platform } from "react-native";
+import * as Linking from 'expo-linking';
+import CryptoJS from "crypto-js";
+
 
 // Define the config
 const config = {
@@ -26,7 +31,52 @@ type MyThemeType = typeof theme;
 declare module "native-base" {
   interface ICustomTheme extends MyThemeType {}
 }
+
 export default function App() {
+  const web = !["ios", "android"].includes(Platform.OS);
+
+  /* deep link */
+  const redirectUrl = Linking.createURL('path/into/app', {
+    queryParams: { hello: 'world' },
+  });
+
+  const handleOpenURL = ({ url }) => {
+    console.log('from deep link -> ', url);
+  };
+
+  useEffect(() => {
+    Linking.addEventListener('url', handleOpenURL);
+
+    if (web) {
+      const searchParams = new URLSearchParams(window.location.search);
+      const login = searchParams.get('login') || "";
+
+      const decrypted = CryptoJS.AES.decrypt(decodeURIComponent(login), `CARLOS LOUREIRO`).toString(CryptoJS.enc.Utf8);
+
+      console.log('login ->', decrypted);
+    }
+  }, []);
+
+
+
+  const LoginButton = () => {
+    return <Box alignItems="center">
+        <Button onPress={() => {
+          const url = web ? 'http://api-multi-oauth2-react-native.carlosloureiro.xyz/auth/google' : 'http://api-multi-oauth2-react-native.carlosloureiro.xyz/auth/google';
+          Linking.openURL(url);
+          /*
+          Linking.canOpenURL(redirectUrl).then(supported => {
+            if (supported) {
+              Linking.openURL(redirectUrl);
+            } else {
+              console.log('nao suportado');
+            }
+          });
+          */
+        }}>Login</Button>
+      </Box>;
+  };
+
   return (
     <NativeBaseProvider>
       <Center
@@ -61,6 +111,7 @@ export default function App() {
               Learn NativeBase
             </Text>
           </Link>
+          <LoginButton />
           <ToggleDarkMode />
         </VStack>
       </Center>

@@ -19,7 +19,10 @@
   },
   "dependencies": {
     "@expo/webpack-config": "^18.0.4",
+    "@types/crypto-js": "^4.1.1",
+    "crypto-js": "^4.1.1",
     "expo": "^48.0.0",
+    "expo-linking": "^4.0.1",
     "expo-status-bar": "~1.4.4",
     "native-base": "~3.4.28",
     "react": "18.2.0",
