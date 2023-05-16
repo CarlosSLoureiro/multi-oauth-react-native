@@ -16,7 +16,8 @@ import {
 import NativeBaseIcon from "./components/NativeBaseIcon";
 import { Platform } from "react-native";
 import * as Linking from 'expo-linking';
-import CryptoJS from "crypto-js";
+import CryptoJS from "react-native-crypto-js";
+import QueryString from 'query-string';
 
 
 // Define the config
@@ -33,27 +34,48 @@ declare module "native-base" {
 }
 
 export default function App() {
-  const web = !["ios", "android"].includes(Platform.OS);
-
   /* deep link */
   const redirectUrl = Linking.createURL('path/into/app', {
     queryParams: { hello: 'world' },
-  });
+  }); // must remove
 
-  const handleOpenURL = ({ url }) => {
-    console.log('from deep link -> ', url);
-  };
+  const executeExternalData = (value: string) => {
+    const data = decryptExternalData(value);
+    
+    if (data) {
+      console.log('received data ->', data);
+    }
+  }
+
+  const decryptExternalData = (value: string): object | undefined => {
+    const searchParams = QueryString.parse(value);
+    const data = searchParams.data ? String(searchParams.data) : null;
+    
+    let dataDecrypted;
+
+    if (data) {
+      const decrypted = CryptoJS.AES.decrypt(decodeURIComponent(data), 'CARLOS LOUREIRO').toString(CryptoJS.enc.Utf8);
+      try {
+        dataDecrypted = JSON.parse(decrypted);
+      } catch (e) {
+      }
+    }
+
+    return dataDecrypted;
+  }
 
   useEffect(() => {
-    Linking.addEventListener('url', handleOpenURL);
-
-    if (web) {
-      const searchParams = new URLSearchParams(window.location.search);
-      const login = searchParams.get('login') || "";
-
-      const decrypted = CryptoJS.AES.decrypt(decodeURIComponent(login), `CARLOS LOUREIRO`).toString(CryptoJS.enc.Utf8);
-
-      console.log('login ->', decrypted);
+    if (["ios", "android"].includes(Platform.OS)) {
+      Linking.addEventListener('url', ({ url }) => {
+        const match = url.match(/\/\?(.*)/);
+        const query = match && match[1];
+       
+        if (query) {
+          executeExternalData(query);
+        }
+      });
+    } else {
+      executeExternalData(window.location.search);
     }
   }, []);
 
@@ -62,17 +84,7 @@ export default function App() {
   const LoginButton = () => {
     return <Box alignItems="center">
         <Button onPress={() => {
-          const url = web ? 'http://api-multi-oauth2-react-native.carlosloureiro.xyz/auth/google' : 'http://api-multi-oauth2-react-native.carlosloureiro.xyz/auth/google';
-          Linking.openURL(url);
-          /*
-          Linking.canOpenURL(redirectUrl).then(supported => {
-            if (supported) {
-              Linking.openURL(redirectUrl);
-            } else {
-              console.log('nao suportado');
-            }
-          });
-          */
+          Linking.openURL('http://api-multi-oauth2-react-native.carlosloureiro.xyz/auth/google');
         }}>Login</Button>
       </Box>;
   };
