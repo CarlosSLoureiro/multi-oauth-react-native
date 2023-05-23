@@ -1,6 +1,6 @@
-import Main from "./src/Main";
+import Main from "@main";
 import { NativeBaseProvider } from "native-base";
-import AppContextProvider from "./src/contexts/AppContext";
+import AppContextProvider from "@contexts/AppContext";
 
 export default () =>
     <NativeBaseProvider>

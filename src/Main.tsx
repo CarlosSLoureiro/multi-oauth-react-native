@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { Center, extendTheme, VStack } from "native-base";
-import BottonMenu from "./components/Main/BottonMenu";
-import HomeScreen from "./screens/Home";
-import { AppContext } from "./contexts/AppContext";
+import BottonMenu from "@components/Main/BottonMenu";
+import HomeScreen from "@screens/Home";
+import { AppContext } from "@contexts/AppContext";
 
 // Define the config
 const config = {

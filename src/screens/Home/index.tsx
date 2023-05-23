@@ -1,12 +1,12 @@
 import { HStack, Heading, Text, Link, Box, Button } from "native-base";
-import DarkModeSwitch from "../../components/HomeScreen/DarkModeSwitch";
-import NativeBaseIcon from "../../components/HomeScreen/NativeBaseIcon";
+import DarkModeSwitch from "@components/HomeScreen/DarkModeSwitch";
+import NativeBaseIcon from "@components/HomeScreen/NativeBaseIcon";
 
 import QueryString from 'query-string';
 import Constants from 'expo-constants';
 import * as Linking from 'expo-linking';
 
-import encryptExternalData from "../../utils/data-manager/encrypt";
+import encryptExternalData from "@utils/data-manager/encrypt";
 
 
 const LoginButton = () => {

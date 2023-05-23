@@ -1,7 +1,7 @@
 import React, { ReactElement, createContext, useEffect, useState } from 'react';
 import * as Linking from 'expo-linking';
 
-import decryptExternalData from '../../utils/data-manager/decrypt';
+import decryptExternalData from '@utils/data-manager/decrypt';
 import { Platform } from 'react-native';
 import { AppContextInterface, UserInterface } from './types';
 
