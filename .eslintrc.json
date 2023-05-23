@@ -1,0 +1,60 @@
+{
+    "env": {
+      "browser": true,
+      "es2021": true
+    },
+    "extends": [
+      "eslint:recommended",
+      "plugin:react/recommended",
+      "plugin:@typescript-eslint/recommended",
+      "plugin:react/jsx-runtime"
+    ],
+    "overrides": [
+  
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "ecmaVersion": "latest",
+      "sourceType": "module",
+      "project": ["./tsconfig.json"]
+    },
+    "plugins": [
+      "react",
+      "react-native",
+      "@typescript-eslint",
+      "simple-import-sort"
+    ],
+    "rules": {
+        "camelcase": "warn",
+        "indent": ["error", 2],
+        "@typescript-eslint/indent": ["error", 2],
+        "react/jsx-indent": ["error", 2],
+        "react/jsx-indent-props": ["error", 2],
+        "no-trailing-spaces": "error",
+        "simple-import-sort/imports": ["warn", {
+            "groups": [
+                ["main", "^react", "^expo"],
+                ["native-base"],
+                ["^@contexts/?\\w"],
+                ["^@components/?\\w","^@screens/?\\w"],
+                ["^@hooks/?\\w", "^@utils/?\\w"],
+                ["^\\u0000"],
+                ["^\\.\\.(?!/?$)", "^\\.\\./?$"],
+                ["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"],
+                ["^.+\\.?(css)$"],
+                ["./types", "./styles"]
+            ]
+        }],
+        "semi": "off",
+        "@typescript-eslint/semi": ["warn", "always"],
+        "@typescript-eslint/member-delimiter-style": ["warn", {
+            "multiline": { "delimiter": "semi", "requireLast": true },
+            "singleline": { "delimiter": "semi", "requireLast": false },
+            "multilineDetection": "brackets"
+        }],
+        "@typescript-eslint/quotes": ["error", "backtick"],
+        "no-empty-function": "off",
+        "@typescript-eslint/no-empty-function": "off"
+    }
+  }
+  
