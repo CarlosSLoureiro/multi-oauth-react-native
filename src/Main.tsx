@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-
+import { useContext } from "react";
 import { Center, extendTheme, VStack } from "native-base";
 
 import { AppContext } from "@contexts/AppContext";

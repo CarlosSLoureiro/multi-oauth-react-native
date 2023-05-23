@@ -1,6 +1,5 @@
 import Constants from 'expo-constants';
 import * as Linking from 'expo-linking';
-
 import { Box, Button,Heading, HStack, Link, Text } from "native-base";
 
 import DarkModeSwitch from "@components/HomeScreen/DarkModeSwitch";

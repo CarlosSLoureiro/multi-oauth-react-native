@@ -1,5 +1,4 @@
 import { G, Path } from "react-native-svg";
-
 import { Icon } from "native-base";
 
 export default function NativeBaseIcon() {
