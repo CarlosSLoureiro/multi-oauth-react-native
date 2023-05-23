@@ -1,8 +1,9 @@
-import React, { ReactElement, createContext, useEffect, useState } from 'react';
+import { createContext, ReactElement, useEffect, useState } from 'react';
+import { Platform } from 'react-native';
 import * as Linking from 'expo-linking';
 
 import decryptExternalData from '@utils/data-manager/decrypt';
-import { Platform } from 'react-native';
+
 import { AppContextInterface, UserInterface } from './types';
 
 // Criando o contexto
@@ -20,21 +21,21 @@ export default function AppContextProvider ({ children }: { children: ReactEleme
   const executeExternalData = (value: string) => {
     try {
       const data = decryptExternalData(value);
-    
+
       if (data) {
         setExternalData(data);
       }
     } catch (e) {
-      console.log('Invalid data!');
+      console.log(`Invalid data!`);
     }
-  }
+  };
 
   useEffect(() => {
-    if (["ios", "android"].includes(Platform.OS)) {
-      Linking.addEventListener('url', ({ url }) => {
+    if ([`ios`, `android`].includes(Platform.OS)) {
+      Linking.addEventListener(`url`, ({ url }) => {
         const match = url.match(/\/\?(.*)/);
         const query = match && match[1];
-       
+
         if (query) {
           executeExternalData(query);
         }
@@ -49,4 +50,4 @@ export default function AppContextProvider ({ children }: { children: ReactEleme
       {children}
     </AppContext.Provider>
   );
-};
+}

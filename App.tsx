@@ -1,10 +1,15 @@
 import Main from "@main";
+
 import { NativeBaseProvider } from "native-base";
+
 import AppContextProvider from "@contexts/AppContext";
 
-export default () =>
+export default function App() {
+  return (
     <NativeBaseProvider>
-        <AppContextProvider>
-            <Main/>
-        </AppContextProvider>
-    </NativeBaseProvider>;
+      <AppContextProvider>
+        <Main/>
+      </AppContextProvider>
+    </NativeBaseProvider>
+  );
+}
