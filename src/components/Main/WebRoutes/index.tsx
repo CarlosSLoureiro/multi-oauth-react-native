@@ -1,18 +1,40 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { ReactElement, useContext, useEffect } from 'react';
+import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
+
+import AppContext from '@contexts/AppContext';
+
+import { screens } from '@screens/config';
 
 import BottonMenu from '../BottonMenu';
 
-import { WebRoutesProps } from './types';
 
-export default function AppRoutes({ screens }: WebRoutesProps) {
+const RoutesScreen = () => {
+  const { currentScreen } = useContext(AppContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (currentScreen !== undefined) {
+      navigate(currentScreen.route);
+    }
+  }, [currentScreen, navigate]);
+
   return (
-    <BrowserRouter>
+    <>
       <Routes>
         {screens.map((screen) => (
           <Route key={screen.name} path={screen.route} element={<screen.screen />} />
         ))}
       </Routes>
       <BottonMenu />
+    </>
+  );
+};
+
+
+export default function WebRoutes() {
+  return (
+    <BrowserRouter>
+      <RoutesScreen/>
     </BrowserRouter>
   );
 }

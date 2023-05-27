@@ -1,25 +1,15 @@
-import { Button,Platform,View } from "react-native";
-import { useNavigate } from 'react-router-dom';
+import { useContext } from "react";
+import { Button, View } from "react-native";
 import { Center, Text,VStack } from "native-base";
 
-import { useNavigation } from '@react-navigation/native';
+import AppContext from "@contexts/AppContext";
 
 export default function GenericSettingsScreen() {
-  let navigateToHome = () => {};
+  const { setScreen } = useContext(AppContext);
 
-  if (Platform.OS === `web`) {
-    const navigate = useNavigate();
-
-    navigateToHome = () => {
-      navigate(`/`);
-    };
-  } else {
-    const navigation = useNavigation();
-
-    navigateToHome = () => {
-      navigation.navigate(`Home` as unknown as never);
-    };
-  }
+  const navigateToHome = () => {
+    setScreen(`Home`);
+  };
 
   return (
     <Center _dark={{ bg: `blueGray.900` }} _light={{ bg: `blueGray.50` }} px={4} flex={1}>
