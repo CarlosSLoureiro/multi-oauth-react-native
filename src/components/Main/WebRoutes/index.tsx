@@ -1,4 +1,5 @@
 import { useContext, useEffect } from 'react';
+import { Platform } from 'react-native';
 import { BrowserRouter, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 
 import AppContext from '@contexts/AppContext';
@@ -6,7 +7,6 @@ import AppContext from '@contexts/AppContext';
 import { screens } from '@screens/config';
 
 import BottonMenu from '../BottonMenu';
-
 
 const RoutesScreen = () => {
   const { currentScreen } = useContext(AppContext);

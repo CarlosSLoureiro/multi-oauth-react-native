@@ -35,13 +35,12 @@ export default function MobileScreens () {
           headerShown: false,
           headerTitleAlign: `center`,
         }}
-        tabBar={props => <></>}
+        tabBar={props => <BottonMenu />}
       >
         {screens.map((screen) => (
           <Tab.Screen key={screen.name} name={screen.name} component={screen.screen} />
         ))}
       </Tab.Navigator>
-      <BottonMenu />
     </NavigationContainer>
   );
 }
