@@ -1,5 +1,5 @@
 import { useContext, useEffect } from 'react';
-import { StatusBar } from 'native-base';
+import { Platform, StatusBar } from 'react-native';
 
 import AppContext from '@contexts/AppContext';
 
@@ -27,13 +27,13 @@ export default function MobileScreens () {
   return (
     <NavigationContainer ref={navigationRef}>
       <StatusBar
-        backgroundColor={`black`}
+        backgroundColor={`#ffffff`}
         barStyle={`dark-content`}
       />
       <Tab.Navigator
         screenOptions={{
           headerShown: false,
-          headerTitleAlign: `center`
+          headerTitleAlign: `center`,
         }}
         tabBar={props => <></>}
       >

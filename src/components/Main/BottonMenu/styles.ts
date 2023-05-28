@@ -1,4 +1,5 @@
-import { Platform } from "react-native";
+import { ColorValue, Platform } from "react-native";
+import * as NavigationBar from 'expo-navigation-bar';
 import { IBoxProps } from "native-base";
 import { IHStackProps } from "native-base/lib/typescript/components/primitives/Stack/HStack";
 
@@ -9,7 +10,7 @@ export const boxProps: IBoxProps = {
   position: `absolute`,
   safeAreaTop: true,
   width: `100%`,
-  bottom: (Platform.OS === `web`) ? 5 : 0
+  bottom: (Platform.OS !== `web`) ? 0 : 5
 };
 
 export const hStackProps: IHStackProps = {
@@ -17,9 +18,19 @@ export const hStackProps: IHStackProps = {
   alignItems: `center`,
   safeAreaBottom: true,
   shadow: 6,
-  width: `400px`,
   alignSelf: `center`,
   paddingLeft: 50,
   paddingRight: 50,
-  borderRadius: (Platform.OS === `web`) ? 50 : 0
+  ...(Platform.OS === `android` && {
+    paddingBottom: 5
+  }),
+  ...(Platform.OS === `web` && {
+    width: `400px`,
+    borderRadius: 50
+  })
 };
+
+
+if (Platform.OS === `android`) {
+  NavigationBar.setBackgroundColorAsync(hStackProps.bg as ColorValue);
+}
