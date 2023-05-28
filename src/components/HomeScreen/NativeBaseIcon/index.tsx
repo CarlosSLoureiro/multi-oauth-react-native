@@ -1,9 +1,11 @@
 import { G, Path } from "react-native-svg";
 import { Icon } from "native-base";
 
-export default function NativeBaseIcon() {
+import { NativeBaseIconProps } from "./types";
+
+export default function NativeBaseIcon({ size = `100px`}: NativeBaseIconProps) {
   return (
-    <Icon size="110px" viewBox="0 0 602.339 681.729">
+    <Icon size={size} viewBox="0 0 602.339 681.729">
       <G
         id="Group_403"
         data-name="Group 403"

@@ -22,7 +22,7 @@ export const hStackProps: IHStackProps = {
   paddingLeft: 50,
   paddingRight: 50,
   ...(Platform.OS !== `web` && {
-    paddingBottom: 5
+    paddingBottom: Platform.OS === `android` ? 5 : 8
   }),
   ...(Platform.OS === `web` && {
     width: 400,

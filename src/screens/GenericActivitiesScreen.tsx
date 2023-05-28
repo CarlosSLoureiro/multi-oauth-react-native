@@ -4,6 +4,8 @@ import { Center, HStack, Skeleton,Text, VStack } from "native-base";
 
 import AppContext from "@contexts/AppContext";
 
+import BaseScreen from "@components/BaseScreen";
+
 const SekletonExample = () => {
   return <Center w="100%">
     <HStack w="90%" maxW="400" borderWidth="1" space={8} rounded="md" _dark={{
@@ -33,14 +35,10 @@ export default function GenericActivitiesScreen() {
   };
 
   return (
-    <Center _dark={{ bg: `blueGray.900` }} _light={{ bg: `blueGray.50` }} px={4} flex={1}>
-      <VStack space={5} alignItems="center">
-        <View style={{ flex: 1, alignItems: `center`, justifyContent: `center` }}>
-          <Text>Activities Screen</Text>
-          <Button title="Go to Account" onPress={navigateToAccount} />
-          <SekletonExample/>
-        </View>
-      </VStack>
-    </Center>
+    <BaseScreen scrollable={true}>
+      <Text>Activities Screen</Text>
+      <Button title="Go to Account" onPress={navigateToAccount} />
+      <SekletonExample/>
+    </BaseScreen>
   );
 }
