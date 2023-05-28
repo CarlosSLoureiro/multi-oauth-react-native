@@ -15,6 +15,6 @@ export interface AppContextInterface {
   externalData: object;
   user?: UserInterface;
   setUser: (user: UserInterface) => void;
-  currentScreen?: ScreenInterface;
+  currentScreen: ScreenInterface;
   setScreen: (name: string) => void;
 }

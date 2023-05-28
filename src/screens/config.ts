@@ -1,7 +1,7 @@
 import { ScreenInterface } from "@contexts/AppContext/types";
 
+import GenericAccountScreen from "./GenericAccountScreen";
 import GenericHomeScreen from "./GenericHomeScreen";
-import GenericSettingsScreen from "./GenericSettingsScreen";
 
 export const screens: ScreenInterface[] = [
   {
@@ -10,8 +10,8 @@ export const screens: ScreenInterface[] = [
     screen: GenericHomeScreen
   },
   {
-    name: `Settings`,
-    route: `/settings`,
-    screen: GenericSettingsScreen
+    name: `Account`,
+    route: `/account`,
+    screen: GenericAccountScreen
   },
 ];

@@ -4,7 +4,7 @@ import { Center, Text,VStack } from "native-base";
 
 import AppContext from "@contexts/AppContext";
 
-export default function GenericSettingsScreen() {
+export default function GenericAccountScreen() {
   const { setScreen } = useContext(AppContext);
 
   const navigateToHome = () => {
@@ -15,7 +15,7 @@ export default function GenericSettingsScreen() {
     <Center _dark={{ bg: `blueGray.900` }} _light={{ bg: `blueGray.50` }} px={4} flex={1}>
       <VStack space={5} alignItems="center">
         <View style={{ flex: 1, alignItems: `center`, justifyContent: `center` }}>
-          <Text>Settings Screen</Text>
+          <Text>Account Screen</Text>
           <Button title="Go to Home" onPress={navigateToHome} />
         </View>
       </VStack>

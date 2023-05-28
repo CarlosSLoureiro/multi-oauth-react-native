@@ -13,7 +13,7 @@ import { ScreenInterface, UserInterface } from './types';
 export default function AppContextProvider ({ children }: { children: ReactElement }) {
   const [externalData, setExternalData] = useState<object>({});
   const [user, setUser] = useState<UserInterface | undefined>(undefined);
-  const [currentScreen, setCurrentScreen] = useState<ScreenInterface | undefined>(undefined);
+  const [currentScreen, setCurrentScreen] = useState<ScreenInterface>(screens.find(screen => screen.name === `Home`) as ScreenInterface);
 
   const setScreen = (name: string) => {
     for (const screen of screens) {
