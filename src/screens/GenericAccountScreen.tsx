@@ -1,14 +1,14 @@
 import { useContext } from "react";
 import { Button, View } from "react-native";
-import { Center, Text,VStack } from "native-base";
+import { Center, Text, VStack } from "native-base";
 
 import AppContext from "@contexts/AppContext";
 
 export default function GenericAccountScreen() {
   const { setScreen } = useContext(AppContext);
 
-  const navigateToHome = () => {
-    setScreen(`Home`);
+  const navigateToActivities = () => {
+    setScreen(`Activities`);
   };
 
   return (
@@ -16,7 +16,7 @@ export default function GenericAccountScreen() {
       <VStack space={5} alignItems="center">
         <View style={{ flex: 1, alignItems: `center`, justifyContent: `center` }}>
           <Text>Account Screen</Text>
-          <Button title="Go to Home" onPress={navigateToHome} />
+          <Button title="Go to Activities" onPress={navigateToActivities} />
         </View>
       </VStack>
     </Center>

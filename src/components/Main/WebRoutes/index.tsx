@@ -1,5 +1,5 @@
-import { ReactElement, useContext, useEffect } from 'react';
-import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
+import { useContext, useEffect } from 'react';
+import { BrowserRouter, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 
 import AppContext from '@contexts/AppContext';
 
@@ -11,12 +11,13 @@ import BottonMenu from '../BottonMenu';
 const RoutesScreen = () => {
   const { currentScreen } = useContext(AppContext);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    if (currentScreen !== undefined) {
+    if (location.pathname !== currentScreen.route) {
       navigate(currentScreen.route);
     }
-  }, [currentScreen, navigate]);
+  }, [currentScreen]);
 
   return (
     <>

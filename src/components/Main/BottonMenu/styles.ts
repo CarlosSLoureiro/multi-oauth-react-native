@@ -9,7 +9,7 @@ export const boxProps: IBoxProps = {
   position: `absolute`,
   safeAreaTop: true,
   width: `100%`,
-  bottom: [`ios`, `android`].includes(Platform.OS) ? 0 : 5
+  bottom: (Platform.OS === `web`) ? 5 : 0
 };
 
 export const hStackProps: IHStackProps = {
@@ -21,5 +21,5 @@ export const hStackProps: IHStackProps = {
   alignSelf: `center`,
   paddingLeft: 50,
   paddingRight: 50,
-  borderRadius: [`ios`, `android`].includes(Platform.OS) ? 0 : 50
+  borderRadius: (Platform.OS === `web`) ? 50 : 0
 };

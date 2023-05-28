@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Platform } from 'react-native';
 import { extendTheme } from "native-base";
 
@@ -22,7 +22,9 @@ declare module "native-base" {
 export default function App() {
   const { currentScreen } = useContext(AppContext);
 
-  console.log(`Screen -> `, currentScreen?.name);
+  useEffect(() => {
+    console.log(`Screen -> `, currentScreen?.name);
+  }, [currentScreen]);
 
   return (
     <>

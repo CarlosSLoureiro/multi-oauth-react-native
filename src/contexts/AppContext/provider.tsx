@@ -13,7 +13,14 @@ import { ScreenInterface, UserInterface } from './types';
 export default function AppContextProvider ({ children }: { children: ReactElement }) {
   const [externalData, setExternalData] = useState<object>({});
   const [user, setUser] = useState<UserInterface | undefined>(undefined);
-  const [currentScreen, setCurrentScreen] = useState<ScreenInterface>(screens.find(screen => screen.name === `Home`) as ScreenInterface);
+  const [currentScreen, setCurrentScreen] = useState<ScreenInterface>((): ScreenInterface => {
+    if (Platform.OS !== `web`) {
+      return screens.find(screen => screen.name === `Home`) as ScreenInterface;
+    } else {
+      const url = new URL(window.location.href);
+      return screens.find(screen => screen.route === url.pathname) as ScreenInterface;
+    }
+  });
 
   const setScreen = (name: string) => {
     for (const screen of screens) {
