@@ -4,6 +4,7 @@ import { Box, Center, HStack, Icon, Pressable, Text } from 'native-base';
 
 import AppContext from "@contexts/AppContext";
 
+import { MenuItemsInterface } from "./types";
 import { boxProps, hStackProps } from "./styles";
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -16,7 +17,7 @@ export default function BottonMenu() {
     setSelected(currentScreen.name);
   }, [currentScreen]);
 
-  const items = [
+  const items: MenuItemsInterface[] = [
     {
       name: `Home`,
       icon: <MaterialCommunityIcons name='home-outline' />,
