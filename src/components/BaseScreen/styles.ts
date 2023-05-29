@@ -8,7 +8,9 @@ export const outerViewProps: IViewProps = {
   ...(Platform.OS === `ios` && {
     paddingTop: `40px`,
   }),
-  display: `contents`
+  ...(Platform.OS === `web` && {
+    display: `contents`
+  })
 };
 
 export const viewProps: IViewProps | IScrollViewProps = {

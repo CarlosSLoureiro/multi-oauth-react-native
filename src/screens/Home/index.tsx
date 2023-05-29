@@ -1,13 +1,14 @@
-import { useContext,useEffect, useState } from 'react';
+import React, { useContext,useEffect,useState } from 'react';
 import Constants from 'expo-constants';
 import * as Linking from 'expo-linking';
-import { Box, Button, Center, Divider, Heading, Hidden, HStack, Link, Spacer, Text } from "native-base";
+import { Box, Button, Center, Divider, Heading, Link, Text } from "native-base";
 
 import AppContext from '@contexts/AppContext';
 
 import BaseScreen from '@components/BaseScreen';
+import Card from '@components/HomeScreen/Card';
 import DarkModeSwitch from "@components/HomeScreen/DarkModeSwitch";
-import NativeBaseIcon from "@components/HomeScreen/NativeBaseIcon";
+import Header from '@components/HomeScreen/Header';
 
 import encryptExternalData from "@utils/data-manager/encrypt";
 
@@ -52,13 +53,14 @@ export default function HomeScreen() {
         flex: 1,
         alignItems: `center`
       }}>
-        <Heading size="xl">{message}</Heading>
-        <Heading size="sm" style={{paddingBottom: 10}}>Welcome to Multi OAuth2 Example App</Heading>
+        <Header>
+          <Heading size="lg">{message}</Heading>
+          <Heading size="xs" style={{ paddingBottom: 10 }}>
+            Welcome to Multi OAuth2 Example App
+          </Heading>
+        </Header>
         <Divider my={5} />
-        <NativeBaseIcon size={50} />
-        <HStack space={2} alignItems="center">
-          <Text>This app has been made with <Text bold>Expo</Text> + <Text bold>Native Base</Text></Text>
-        </HStack>
+        <Card/>
         <Link href="https://docs.nativebase.io" isExternal>
           <Text color="primary.500" underline fontSize={`xl`}>Learn NativeBase</Text>
         </Link>
