@@ -1,14 +1,16 @@
-import React, { useContext,useEffect,useState } from 'react';
+import { useContext,useEffect,useState } from 'react';
 import Constants from 'expo-constants';
 import * as Linking from 'expo-linking';
-import { Box, Button, Center, Divider, Heading, Link, Text } from "native-base";
+import { Box, Button, Center, Divider, Heading, HStack, Link, Text, Tooltip } from "native-base";
 
 import AppContext from '@contexts/AppContext';
 
 import BaseScreen from '@components/BaseScreen';
 import Card from '@components/HomeScreen/Card';
 import DarkModeSwitch from "@components/HomeScreen/DarkModeSwitch";
+import ExpoIcon from '@components/HomeScreen/ExpoIcon';
 import Header from '@components/HomeScreen/Header';
+import NativeBaseIcon from '@components/HomeScreen/NativeBaseIcon';
 
 import encryptExternalData from "@utils/data-manager/encrypt";
 
@@ -60,10 +62,40 @@ export default function HomeScreen() {
           </Heading>
         </Header>
         <Divider my={5} />
-        <Card/>
-        <Link href="https://docs.nativebase.io" isExternal>
-          <Text color="primary.500" underline fontSize={`xl`}>Learn NativeBase</Text>
-        </Link>
+        <Center style={{
+          display: `flex`,
+          flexDirection: `row`,
+          gap: 25
+        }}>
+          <Card position={1}>
+            <Center w="150" h="110" mt="7" _dark={{ bg: `coolGray.500` }} _light={{ bg: `coolGray.200` }} rounded="md">
+              <HStack space={0} flex={1} flexDirection="column" justifyContent="center" alignItems="center">
+                <Text paddingTop={2} textAlign="center">This app has been made with <Text bold>Expo</Text> + <Text bold>Native Base</Text></Text>
+                <HStack space={2} flex={1} flexDirection="row" alignItems="center">
+                  <ExpoIcon size='25px' />
+                  <Tooltip label="Learn NativeBase" openDelay={500}>
+                    <Link href="https://docs.nativebase.io" isExternal>
+                      <NativeBaseIcon size='25px' />
+                    </Link>
+                  </Tooltip>
+                </HStack>
+              </HStack>
+            </Center>
+          </Card>
+          <Card position={2}>
+            <Center w="150" h="110" mt="7" _dark={{ bg: `coolGray.500` }} _light={{ bg: `coolGray.200` }} rounded="md">
+              <HStack space={0} flex={1} flexDirection="column" justifyContent="center" alignItems="center">
+                <Text paddingTop={2} textAlign="center">This app has been made with <Text bold>Expo</Text> + <Text bold>Native Base</Text></Text>
+                <HStack space={2} flex={1} flexDirection="row" alignItems="center">
+                  <ExpoIcon size='25px' />
+                  <Link href="https://docs.nativebase.io" isExternal>
+                    <NativeBaseIcon size='25px' />
+                  </Link>
+                </HStack>
+              </HStack>
+            </Center>
+          </Card>
+        </Center>
         <Divider my={5} />
         <LoginButton />
         <DarkModeSwitch />
