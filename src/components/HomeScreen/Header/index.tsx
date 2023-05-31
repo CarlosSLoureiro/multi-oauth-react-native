@@ -1,7 +1,9 @@
 import { useEffect,useRef, useState} from "react";
 import { Animated, Easing } from "react-native";
+import { useColorModeValue,View } from "native-base";
 
 import { HeaderProps } from "./types";
+import { containerStyle } from "./styles";
 
 export default function Header ({children}: HeaderProps) {
   const [toggle, setToggle] = useState(false);
@@ -26,18 +28,15 @@ export default function Header ({children}: HeaderProps) {
 
   const interpolateColors = colorAnimation.interpolate({
     inputRange: [0, 1],
-    outputRange: [`#ADD8E6`, `#EE82EE`],
+    outputRange: useColorModeValue(`Light`, `Dark`) === `Light` ? [`#ADD8E6`, `#EE82EE`] : [`#4b8397`, `#972397`],
   });
 
-  const containerStyle = {
-    backgroundColor: interpolateColors,
-    padding: 12,
-    borderRadius: 8,
-  };
-
   return (
-    <Animated.View style={containerStyle}>
-      {children}
-    </Animated.View>
+    <View shadow={3} style={{borderRadius: 8}}>
+      { /* @ts-ignore */ }
+      <Animated.View style={{...containerStyle, backgroundColor: interpolateColors}}>
+        {children}
+      </Animated.View>
+    </View>
   );
 }
