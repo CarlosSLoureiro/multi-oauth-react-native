@@ -11,6 +11,7 @@ import AndroidIcon from '@components/HomeScreen/Icons/AndroidIcon';
 import APIIcon from '@components/HomeScreen/Icons/APIIcon';
 import AppleIcon from '@components/HomeScreen/Icons/AppleIcon';
 import ExpoIcon from '@components/HomeScreen/Icons/ExpoIcon';
+import FacebookIcon from '@components/HomeScreen/Icons/FacebookIcon';
 import GoogleIcon from '@components/HomeScreen/Icons/GoogleIcon';
 import NativeBaseIcon from '@components/HomeScreen/Icons/NativeBaseIcon';
 import TSIcon from '@components/HomeScreen/Icons/TSIcon';
@@ -106,16 +107,16 @@ export default function HomeScreen() {
             </HStack>
           </Card>
           <Card position={4}>
-            <Text paddingTop={2} paddingX={2} textAlign="center">OAuth support to <Text bold>Google</Text>, <Text bold>Apple</Text> and others</Text>
+            <Text paddingTop={2} paddingX={2} textAlign="center">OAuth support to <Text bold>Google</Text>, <Text bold>Faceook</Text> and others</Text>
             <HStack space={2} flex={1} flexDirection="row" alignItems="center">
               <Tooltip label="Google">
                 <Link href="https://www.google.com/" isExternal>
-                  <GoogleIcon size='22px' />
+                  <GoogleIcon size='21px' />
                 </Link>
               </Tooltip>
-              <Tooltip label="Apple">
-                <Link href="https://www.apple.com/" isExternal>
-                  <AppleIcon size='25px' />
+              <Tooltip label="Facebook">
+                <Link href="https://www.facebook.com/" isExternal>
+                  <FacebookIcon size='25px' />
                 </Link>
               </Tooltip>
             </HStack>
