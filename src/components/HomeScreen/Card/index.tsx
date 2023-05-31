@@ -1,6 +1,7 @@
-import { PresenceTransition } from "native-base";
+import { Center, HStack, PresenceTransition } from "native-base";
 
 import { CardProps } from "./types";
+import { centerProps, hStackProps } from "./styles";
 
 export default function Card ({ children, position = 1 }: CardProps) {
   return (
@@ -15,7 +16,11 @@ export default function Card ({ children, position = 1 }: CardProps) {
         }
       }}
     >
-      { children }
+      <Center {...centerProps}>
+        <HStack {...hStackProps}>
+          { children }
+        </HStack>
+      </Center>
     </PresenceTransition>
   );
 }
