@@ -9,8 +9,14 @@ import BaseScreen from '@components/BaseScreen';
 import Card from '@components/HomeScreen/Card';
 import DarkModeSwitch from "@components/HomeScreen/DarkModeSwitch";
 import Header from '@components/HomeScreen/Header';
+import AndroidIcon from '@components/HomeScreen/Icons/AndroidIcon';
+import APIIcon from '@components/HomeScreen/Icons/APIIcon';
+import AppleIcon from '@components/HomeScreen/Icons/AppleIcon';
 import ExpoIcon from '@components/HomeScreen/Icons/ExpoIcon';
+import GoogleIcon from '@components/HomeScreen/Icons/GoogleIcon';
 import NativeBaseIcon from '@components/HomeScreen/Icons/NativeBaseIcon';
+import TSIcon from '@components/HomeScreen/Icons/TSIcon';
+import WebIcon from '@components/HomeScreen/Icons/WebIcon';
 
 import encryptExternalData from "@utils/data-manager/encrypt";
 
@@ -72,12 +78,12 @@ export default function HomeScreen() {
               <HStack space={0} flex={1} flexDirection="column" justifyContent="center" alignItems="center">
                 <Text paddingTop={2} paddingX={2} textAlign="center">This app has been made with <Text bold>Expo</Text> + <Text bold>Native Base</Text></Text>
                 <HStack space={2} flex={1} flexDirection="row" alignItems="center">
-                  <Tooltip label="Expo" openDelay={500}>
+                  <Tooltip label="Expo">
                     <Link href="https://expo.dev/" isExternal>
                       <ExpoIcon size='25px' />
                     </Link>
                   </Tooltip>
-                  <Tooltip label="NativeBase" openDelay={500}>
+                  <Tooltip label="NativeBase">
                     <Link href="https://nativebase.io/" isExternal>
                       <NativeBaseIcon size='25px' />
                     </Link>
@@ -91,9 +97,65 @@ export default function HomeScreen() {
               <HStack space={0} flex={1} flexDirection="column" justifyContent="center" alignItems="center">
                 <Text paddingTop={2} paddingX={2} textAlign="center">Compatible with <Text bold>Android</Text>, <Text bold>iOS</Text> and also <Text bold>Web</Text></Text>
                 <HStack space={2} flex={1} flexDirection="row" alignItems="center">
-                  <Link href="https://docs.nativebase.io" isExternal>
-                    <NativeBaseIcon size='25px' />
-                  </Link>
+                  <Tooltip label="Android">
+                    <Link href="https://www.android.com/" isExternal>
+                      <AndroidIcon size='23px' />
+                    </Link>
+                  </Tooltip>
+                  <Tooltip label="iOS">
+                    <Link href="https://www.apple.com/ios" isExternal>
+                      <AppleIcon size='25px' />
+                    </Link>
+                  </Tooltip>
+                  <Tooltip label="Web">
+                    <Link href="#">
+                      <WebIcon size='25px' />
+                    </Link>
+                  </Tooltip>
+                </HStack>
+              </HStack>
+            </Center>
+          </Card>
+        </Center>
+        <Center style={{
+          display: `flex`,
+          flexDirection: `row`,
+          gap: 25
+        }}>
+          <Card position={3}>
+            <Center w="150" h="110" mt="7" _dark={{ bg: `coolGray.500` }} _light={{ bg: `coolGray.200` }} rounded="md">
+              <HStack space={0} flex={1} flexDirection="column" justifyContent="center" alignItems="center">
+                <Text paddingTop={2} paddingX={2} textAlign="center">It is managed with a <Text bold>External API</Text> also in <Text bold>TypeScript</Text></Text>
+                <HStack space={2} flex={1} flexDirection="row" alignItems="center">
+                  <Tooltip label="API Repository">
+                    <Link href="https://github.com/CarlosSLoureiro/multi-oauth2-react-native-api" isExternal>
+                      <APIIcon size='25px' />
+                    </Link>
+                  </Tooltip>
+                  <Tooltip label="TypeScript">
+                    <Link href="https://www.typescriptlang.org/" isExternal>
+                      <TSIcon size='25px' />
+                    </Link>
+                  </Tooltip>
+                </HStack>
+              </HStack>
+            </Center>
+          </Card>
+          <Card position={4}>
+            <Center w="150" h="110" mt="7" _dark={{ bg: `coolGray.500` }} _light={{ bg: `coolGray.200` }} rounded="md">
+              <HStack space={0} flex={1} flexDirection="column" justifyContent="center" alignItems="center">
+                <Text paddingTop={2} paddingX={2} textAlign="center">OAuth support to <Text bold>Google</Text>, <Text bold>Apple</Text> and others</Text>
+                <HStack space={2} flex={1} flexDirection="row" alignItems="center">
+                  <Tooltip label="Google">
+                    <Link href="https://www.google.com/" isExternal>
+                      <GoogleIcon size='22px' />
+                    </Link>
+                  </Tooltip>
+                  <Tooltip label="Apple">
+                    <Link href="https://www.apple.com/" isExternal>
+                      <AppleIcon size='25px' />
+                    </Link>
+                  </Tooltip>
                 </HStack>
               </HStack>
             </Center>
