@@ -40,7 +40,7 @@ export default function HomeScreen() {
             Welcome to Multi OAuth2 Example App
           </Heading>
           <Heading size="xs" style={{ paddingBottom: 10 }}>
-            Note that it has created with React Native!
+            Note that it has created with <Link href="https://reactnative.dev/" isExternal>React Native</Link>!
           </Heading>
         </Header>
         <DarkModeSwitch />
