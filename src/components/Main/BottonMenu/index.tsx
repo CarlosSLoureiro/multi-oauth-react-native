@@ -1,11 +1,12 @@
 import { useContext, useEffect, useState } from "react";
+import { Platform } from "react-native";
 import * as Linking from 'expo-linking';
 import { Box, Center, HStack, Icon, Pressable, Text } from 'native-base';
 
 import AppContext from "@contexts/AppContext";
 
 import { MenuItemsInterface } from "./types";
-import { boxProps, hStackProps } from "./styles";
+import { boxProps, hStackProps, iconProps, textProps } from "./styles";
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
@@ -38,7 +39,12 @@ export default function BottonMenu() {
       name: `Developer`,
       icon: <MaterialCommunityIcons name='github' />,
       action: () => {
-        Linking.openURL(`https://github.com/CarlosSLoureiro`);
+        const url = `https://github.com/CarlosSLoureiro`;
+        if (Platform.OS === `web`) {
+          window.open(url, `_blank`);
+        } else {
+          Linking.openURL(url);
+        }
       }
     },
     {
@@ -63,12 +69,10 @@ export default function BottonMenu() {
             onPress={item.action}>
             <Center>
               <Icon
-                mb="1"
                 as={selected === item.name && item.iconSelected ? item.iconSelected : item.icon}
-                color="white"
-                size="sm"
+                {...iconProps}
               />
-              <Text color="white" fontSize="12">
+              <Text {...textProps}>
                 {item.name}
               </Text>
             </Center>

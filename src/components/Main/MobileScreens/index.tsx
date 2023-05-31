@@ -1,5 +1,5 @@
 import { useContext, useEffect } from 'react';
-import { Platform, StatusBar } from 'react-native';
+import { StatusBar } from 'react-native';
 
 import AppContext from '@contexts/AppContext';
 
