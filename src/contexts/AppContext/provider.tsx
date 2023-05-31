@@ -22,9 +22,20 @@ export default function AppContextProvider ({ children }: { children: ReactEleme
     }
   });
 
+  useEffect(() => {
+    if (currentScreen?.requireUser && !user) {
+      setCurrentScreen(screens.find(screen => screen.name === `Login`) as ScreenInterface);
+      return;
+    }
+  }, [user, currentScreen]);
+
   const setScreen = (name: string) => {
     for (const screen of screens) {
       if (screen.name === name) {
+        if (screen?.requireUser && !user) {
+          setCurrentScreen(screens.find(screen => screen.name === `Login`) as ScreenInterface);
+          return;
+        }
         setCurrentScreen(screen);
         return;
       }

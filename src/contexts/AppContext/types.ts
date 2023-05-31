@@ -9,6 +9,7 @@ export interface ScreenInterface {
   name: string;
   route: string;
   screen: ComponentType;
+  requireUser?: boolean;
 }
 
 export interface AppContextInterface {

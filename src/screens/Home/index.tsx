@@ -1,7 +1,5 @@
 import { useContext,useEffect,useState } from 'react';
-import Constants from 'expo-constants';
-import * as Linking from 'expo-linking';
-import { Box, Button, Center, Divider, Heading, HStack, Link, Text, Tooltip } from "native-base";
+import { Center, Divider, Heading, HStack, Link, Text, Tooltip } from "native-base";
 
 import AppContext from '@contexts/AppContext';
 
@@ -17,32 +15,6 @@ import GoogleIcon from '@components/HomeScreen/Icons/GoogleIcon';
 import NativeBaseIcon from '@components/HomeScreen/Icons/NativeBaseIcon';
 import TSIcon from '@components/HomeScreen/Icons/TSIcon';
 import WebIcon from '@components/HomeScreen/Icons/WebIcon';
-
-import encryptExternalData from "@utils/data-manager/encrypt";
-
-import QueryString from 'query-string';
-
-
-const LoginButton = () => {
-  return <Box alignItems="center">
-    <Button onPress={async () => {
-      const api = `http://api-multi-oauth2-react-native-test.carlosloureiro.xyz`;
-      const params = {
-        'isDevelopment': __DEV__,
-        'debuggerHost': Constants.manifest?.debuggerHost,
-      };
-
-      const query = QueryString.stringify({
-        data: encryptExternalData(params)
-      });
-
-      const url = `${api}/auth/google?${query}`;
-
-      await Linking.openURL(url);
-    }}>Login</Button>
-  </Box>;
-};
-
 
 export default function HomeScreen() {
   const [firstMessage, setFirstMessage] = useState<string>(`Hey there!`);
@@ -70,6 +42,7 @@ export default function HomeScreen() {
             Note that it has created with React Native!
           </Heading>
         </Header>
+        <DarkModeSwitch />
         <Divider my={5} />
         <Center style={{
           display: `flex`,
@@ -148,9 +121,6 @@ export default function HomeScreen() {
             </HStack>
           </Card>
         </Center>
-        <Divider my={5} />
-        <LoginButton />
-        <DarkModeSwitch />
       </Center>
     </BaseScreen>
   );

@@ -14,10 +14,6 @@ export default function BottonMenu() {
   const [selected, setSelected] = useState<string>();
   const { currentScreen, setScreen } = useContext(AppContext);
 
-  useEffect(() => {
-    setSelected(currentScreen.name);
-  }, [currentScreen]);
-
   const items: MenuItemsInterface[] = [
     {
       name: `Home`,
@@ -57,6 +53,13 @@ export default function BottonMenu() {
     }
   ];
 
+  useEffect(() => {
+    const isScreenInMenu = items.findIndex((item) => item.name === currentScreen.name) !== -1;
+    if (isScreenInMenu) {
+      setSelected(currentScreen.name);
+    }
+  }, [currentScreen]);
+
   return (
     <Box {...boxProps}>
       <HStack {...hStackProps}>
@@ -66,7 +69,10 @@ export default function BottonMenu() {
             opacity={selected === item.name ? 1 : 0.5}
             py="2"
             flex={1}
-            onPress={item.action}>
+            onPress={() => {
+              setSelected(item.name);
+              item.action();
+            }}>
             <Center>
               <Icon
                 as={selected === item.name && item.iconSelected ? item.iconSelected : item.icon}

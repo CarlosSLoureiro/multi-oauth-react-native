@@ -1,14 +1,20 @@
 import { ScreenInterface } from "@contexts/AppContext/types";
 
-import GenericAccountScreen from "./GenericAccountScreen";
-import GenericActivitiesScreen from "./GenericActivitiesScreen";
-import HomeScreen from "./Home";
+import AccountScreen from "@screens/Account";
+import GenericActivitiesScreen from "@screens/GenericActivitiesScreen";
+import HomeScreen from "@screens/Home";
+import LoginScreen from "@screens/Login";
 
 export const screens: ScreenInterface[] = [
   {
     name: `Home`,
     route: `/`,
     screen: HomeScreen
+  },
+  {
+    name: `Login`,
+    route: `/login`,
+    screen: LoginScreen
   },
   {
     name: `Activities`,
@@ -18,7 +24,8 @@ export const screens: ScreenInterface[] = [
   {
     name: `Account`,
     route: `/account`,
-    screen: GenericAccountScreen
+    screen: AccountScreen,
+    requireUser: true
   },
 
 ];

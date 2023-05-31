@@ -1,19 +1,25 @@
-import { HStack, Switch, Text, useColorMode } from "native-base";
+import { Heading, HStack, Switch, Text, Tooltip, useColorMode } from "native-base";
 
 export default function DarkModeSwitch() {
   const { colorMode, toggleColorMode } = useColorMode();
 
   return (
-    <HStack space={2} alignItems="center">
-      <Text>Dark</Text>
-      <Switch
-        isChecked={colorMode === `light`}
-        onToggle={toggleColorMode}
-        aria-label={
-          colorMode === `light` ? `switch to dark mode` : `switch to light mode`
-        }
-      />
-      <Text>Light</Text>
-    </HStack>
+    <>
+      <Heading size="sm" style={{ marginTop: 20, paddingBottom: 10 }}>
+        How do you prefer?
+      </Heading>
+      <HStack space={2} alignItems="center">
+        <Text>Dark</Text>
+        <Tooltip label={
+          colorMode === `light` ? `Switch to Dark Mode` : `Switch to Light Mode`
+        }>
+          <Switch
+            isChecked={colorMode === `light`}
+            onToggle={toggleColorMode}
+          />
+        </Tooltip>
+        <Text>Light</Text>
+      </HStack>
+    </>
   );
 }
