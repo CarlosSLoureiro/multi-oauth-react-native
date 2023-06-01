@@ -14,6 +14,7 @@ import ExpoIcon from '@components/HomeScreen/Icons/ExpoIcon';
 import FacebookIcon from '@components/HomeScreen/Icons/FacebookIcon';
 import GoogleIcon from '@components/HomeScreen/Icons/GoogleIcon';
 import NativeBaseIcon from '@components/HomeScreen/Icons/NativeBaseIcon';
+import ReactIcon from '@components/HomeScreen/Icons/ReactIcon';
 import TSIcon from '@components/HomeScreen/Icons/TSIcon';
 import WebIcon from '@components/HomeScreen/Icons/WebIcon';
 
@@ -39,9 +40,9 @@ export default function HomeScreen() {
           <Heading size="xs" style={{ paddingBottom: 10 }}>
             Welcome to Multi OAuth2 Example App
           </Heading>
-          <Heading size="xs" style={{ paddingBottom: 10 }}>
-            Note that it has created with <Link href="https://reactnative.dev/" isExternal>React Native</Link>!
-          </Heading>
+          <Text>
+            Note that it has created with <Text bold>React Native</Text>! <Link _web={{position:`absolute`}} href="https://reactnative.dev/" isExternal><ReactIcon size="20px" color='#003cff'/></Link>
+          </Text>
         </Header>
         <DarkModeSwitch />
         <Divider my={5} />

@@ -1,4 +1,3 @@
-import React from 'react';
 import Svg, { Circle, Defs, LinearGradient, Path, Stop } from 'react-native-svg';
 
 import { FacebookIconProps } from './types';
