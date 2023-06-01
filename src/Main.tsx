@@ -20,11 +20,15 @@ declare module "native-base" {
 }
 
 export default function App() {
-  const { currentScreen } = useContext(AppContext);
+  const { currentScreen, externalData } = useContext(AppContext);
 
   useEffect(() => {
     console.log(`Screen -> `, currentScreen?.name);
   }, [currentScreen]);
+
+  useEffect(() => {
+    console.log(`externalData -> `, externalData);
+  }, [externalData]);
 
   return (
     <>
