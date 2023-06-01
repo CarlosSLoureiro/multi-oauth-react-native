@@ -1,8 +1,16 @@
+import { useEffect } from "react";
+import { Platform } from "react-native";
+import * as NavigationBar from 'expo-navigation-bar';
 import { Heading, HStack, Switch, Text, Tooltip, useColorMode } from "native-base";
 
 export default function DarkModeSwitch() {
   const { colorMode, toggleColorMode } = useColorMode();
 
+  useEffect(() => {
+    if (Platform.OS === `android`) {
+      void NavigationBar.setBackgroundColorAsync(colorMode === `light` ? `white` : `black`);
+    }
+  }, [colorMode]);
   return (
     <>
       <Heading size="sm" style={{ marginTop: 20, paddingBottom: 10 }}>

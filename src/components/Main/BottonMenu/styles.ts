@@ -1,5 +1,3 @@
-import { ColorValue, Platform } from "react-native";
-import * as NavigationBar from 'expo-navigation-bar';
 import { IBoxProps, IIconProps, ITextProps } from "native-base";
 import { IHStackProps } from "native-base/lib/typescript/components/primitives/Stack/HStack";
 
@@ -59,8 +57,3 @@ export const textProps: ITextProps = {
   },
   fontSize: `12`
 };
-
-
-if (Platform.OS === `android`) {
-  NavigationBar.setBackgroundColorAsync(hStackProps.bg as ColorValue);
-}
