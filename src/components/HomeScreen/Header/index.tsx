@@ -32,7 +32,7 @@ export default function Header ({children}: HeaderProps) {
   });
 
   return (
-    <View shadow={3} style={{borderRadius: 8}}>
+    <View shadow={3} backgroundColor="white" style={{borderRadius: 8}}>
       { /* @ts-ignore */ }
       <Animated.View style={{...containerStyle, backgroundColor: interpolateColors}}>
         {children}
