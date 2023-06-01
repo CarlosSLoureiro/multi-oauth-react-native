@@ -1,4 +1,5 @@
 import { useContext,useEffect,useState } from 'react';
+import { Platform } from 'react-native';
 import { Center, Divider, Heading, HStack, Link, Text, Tooltip } from "native-base";
 
 import AppContext from '@contexts/AppContext';
@@ -41,7 +42,7 @@ export default function HomeScreen() {
             Welcome to Multi OAuth2 Example App
           </Heading>
           <Text>
-            Note that it has created with <Text bold>React Native</Text>! <Link _web={{position:`absolute`}} href="https://reactnative.dev/" isExternal><ReactIcon size="20px" color='#003cff'/></Link>
+            Note that it has created with <Text bold>React Native</Text>! <Tooltip label="React Native"><Link _web={{position:`absolute`}} href="https://reactnative.dev/" isExternal><ReactIcon size="20px" color='#003cff'/></Link></Tooltip>
           </Text>
         </Header>
         <DarkModeSwitch />
@@ -80,9 +81,7 @@ export default function HomeScreen() {
                 </Link>
               </Tooltip>
               <Tooltip label="Web">
-                <Link href="#">
-                  <WebIcon size='25px' />
-                </Link>
+                <Link href={Platform.OS === `web` ? `#` : `https://multi-oauth2-react-native.carlosloureiro.xyz`}><WebIcon size='25px' /></Link>
               </Tooltip>
             </HStack>
           </Card>
