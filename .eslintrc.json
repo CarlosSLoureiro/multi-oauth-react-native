@@ -12,6 +12,14 @@
     "overrides": [
   
     ],
+    "settings": {
+      "react": {
+        "createClass": "createReactClass",
+        "pragma": "React",
+        "fragment": "Fragment", 
+        "version": "detect"
+      }
+    },
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
       "ecmaVersion": "latest",
