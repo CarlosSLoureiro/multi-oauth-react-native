@@ -5,6 +5,8 @@ import GenericActivitiesScreen from "@screens/GenericActivitiesScreen";
 import HomeScreen from "@screens/Home";
 import LoginScreen from "@screens/Login";
 
+import SignupScreen from "./Signup";
+
 export const screens: ScreenInterface[] = [
   {
     name: `Home`,
@@ -15,6 +17,11 @@ export const screens: ScreenInterface[] = [
     name: `Login`,
     route: `/login`,
     screen: LoginScreen
+  },
+  {
+    name: `Sign Up`,
+    route: `/signup`,
+    screen: SignupScreen
   },
   {
     name: `Activities`,
