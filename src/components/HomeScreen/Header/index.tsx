@@ -1,6 +1,6 @@
 import { useEffect,useRef, useState} from "react";
 import { Animated, Easing } from "react-native";
-import { useColorModeValue,View } from "native-base";
+import { useColorModeValue, View } from "native-base";
 
 import { HeaderProps } from "./types";
 import { containerStyle } from "./styles";

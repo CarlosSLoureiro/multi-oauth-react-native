@@ -1,5 +1,6 @@
 import { useContext, useEffect } from 'react';
-import { StatusBar } from 'react-native';
+import { StatusBar, StatusBarProps } from 'react-native';
+import { useColorModeValue } from 'native-base';
 
 import AppContext from '@contexts/AppContext';
 
@@ -23,13 +24,17 @@ export default function MobileScreens () {
     }
   }, [currentScreen]);
 
-  //navigationRef.current
+  const statusBarProps:StatusBarProps = useColorModeValue(`Light`, `Dark`) === `Light` ? {
+    backgroundColor: `#ffffff`,
+    barStyle: `dark-content`
+  } : {
+    backgroundColor: `#000000`,
+    barStyle: `light-content`
+  };
+
   return (
     <NavigationContainer ref={navigationRef}>
-      <StatusBar
-        backgroundColor={`#ffffff`}
-        barStyle={`dark-content`}
-      />
+      <StatusBar {...statusBarProps} />
       <Tab.Navigator
         screenOptions={{
           headerShown: false,
