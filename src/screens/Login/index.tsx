@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Box, Button, Center, FormControl, Heading, HStack, Input, Link, Pressable, Text, VStack } from "native-base";
+
+import AppContext from "@contexts/AppContext";
 
 import BaseScreen from "@components/BaseScreen";
 import FacebookIcon from "@components/HomeScreen/Icons/FacebookIcon";
@@ -7,7 +9,13 @@ import GoogleIcon from "@components/HomeScreen/Icons/GoogleIcon";
 import OAuth2LoginButton from "@components/LoginScreen/OAuth2LoginButton";
 
 export default function LoginScreen () {
+  const { setScreen } = useContext(AppContext);
   const [loggingIn, setLoggingIn] = useState(false);
+
+  const onPressSignUp = () => {
+    setScreen(`Sign Up`);
+  };
+
   return (
     <BaseScreen>
       <Center flex={1} px="3">
@@ -60,21 +68,11 @@ export default function LoginScreen () {
               >
                 Sign in
               </Button>
-              <HStack mt="6" justifyContent="center">
-                <Text fontSize="sm" color="coolGray.600" _dark={{
-                  color: `warmGray.200`
-                }}>
+              <Pressable onPress={onPressSignUp}>
+                <Text color="indigo.500" fontWeight="medium" fontSize="sm" my="12px" textAlign='center'>
+                  Sign Up
                 </Text>
-                <Pressable onPress={() => console.log(`register`)}>
-                  <Link _text={{
-                    color: `indigo.500`,
-                    fontWeight: `medium`,
-                    fontSize: `sm`
-                  }}>
-                    Sign Up
-                  </Link>
-                </Pressable>
-              </HStack>
+              </Pressable>
             </VStack>
           </Box>
         </Center>
