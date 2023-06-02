@@ -1,6 +1,6 @@
 import Constants from "expo-constants";
 import * as Linking from 'expo-linking';
-import { Button, HStack, Text } from "native-base";
+import { Button, HStack, Text, useColorModeValue } from "native-base";
 
 import encryptExternalData from "@utils/data-manager/encrypt";
 
@@ -28,8 +28,8 @@ export default function OAuth2LoginButton ({icon, title, endpoint}: OAuth2LoginB
   return (
     <Button
       mt="2"
-      colorScheme="#ffffff"
-      borderColor="#000000"
+      backgroundColor="transparent"
+      borderColor={useColorModeValue(`Light`, `Dark`) === `Light` ? `#000000` : `#797979`}
       borderWidth={1}
       onPress={onPress}
     >
