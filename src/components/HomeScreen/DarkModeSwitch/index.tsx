@@ -17,16 +17,16 @@ export default function DarkModeSwitch() {
         How do you prefer?
       </Heading>
       <HStack space={2} alignItems="center">
-        <Text>Dark</Text>
+        <Text>Light</Text>
         <Tooltip label={
           colorMode === `light` ? `Switch to Dark Mode` : `Switch to Light Mode`
         }>
           <Switch
-            isChecked={colorMode === `light`}
+            isChecked={colorMode === `dark`}
             onToggle={toggleColorMode}
           />
         </Tooltip>
-        <Text>Light</Text>
+        <Text>Dark</Text>
       </HStack>
     </>
   );
