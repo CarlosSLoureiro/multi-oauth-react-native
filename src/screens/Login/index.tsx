@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box, Button, Center, FormControl, Heading, HStack, Input, Link, Text, VStack } from "native-base";
+import { Box, Button, Center, FormControl, Heading, HStack, Input, Link, Pressable, Text, VStack } from "native-base";
 
 import BaseScreen from "@components/BaseScreen";
 import FacebookIcon from "@components/HomeScreen/Icons/FacebookIcon";
@@ -64,15 +64,16 @@ export default function LoginScreen () {
                 <Text fontSize="sm" color="coolGray.600" _dark={{
                   color: `warmGray.200`
                 }}>
-                  Im a new user.{` `}
                 </Text>
-                <Link _text={{
-                  color: `indigo.500`,
-                  fontWeight: `medium`,
-                  fontSize: `sm`
-                }} href="#">
-                  Sign Up
-                </Link>
+                <Pressable onPress={() => console.log(`register`)}>
+                  <Link _text={{
+                    color: `indigo.500`,
+                    fontWeight: `medium`,
+                    fontSize: `sm`
+                  }}>
+                    Sign Up
+                  </Link>
+                </Pressable>
               </HStack>
             </VStack>
           </Box>
