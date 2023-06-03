@@ -6,7 +6,7 @@ import AppContext from "@contexts/AppContext";
 import BaseScreen from "@components/BaseScreen";
 
 export default function SignupScreen () {
-  const { setScreen, user } = useContext(AppContext);
+  const { setScreen, user, addAlert } = useContext(AppContext);
   const [isRegistering, setIsRegistering] = useState(false);
 
   const [errors, setErrors] = useState({});
@@ -21,6 +21,10 @@ export default function SignupScreen () {
 
     console.log(`send data to api ->`, formData);
     setErrors({name: `test`});
+    addAlert({
+      status: `error`,
+      message: `test treas s asasda sasd asd asda sd`
+    });
   };
 
   useEffect(() => {

@@ -2,6 +2,8 @@ import { ReactElement, useEffect, useState } from 'react';
 import { Platform } from 'react-native';
 import * as Linking from 'expo-linking';
 
+import Alert from '@components/Main/Alert';
+import { AlertProps } from '@components/Main/Alert/types';
 import { screens } from '@screens/config';
 
 import decryptExternalData from '@utils/data-manager/decrypt';
@@ -13,6 +15,7 @@ import { ScreenInterface, UserInterface } from './types';
 export default function AppContextProvider ({ children }: { children: ReactElement }) {
   const [externalData, setExternalData] = useState<object>({});
   const [user, setUser] = useState<UserInterface | undefined>(undefined);
+  const [alert, setAlert] = useState<Omit<AlertProps, "setAlert"> | undefined>(undefined);
   const [currentScreen, setCurrentScreen] = useState<ScreenInterface>((): ScreenInterface => {
     if (Platform.OS !== `web`) {
       return screens.find(screen => screen.name === `Home`) as ScreenInterface;
@@ -44,6 +47,22 @@ export default function AppContextProvider ({ children }: { children: ReactEleme
     throw Error(`Screen "${name}" is not registed in screens config.`);
   };
 
+  const addAlert = (alertProps: Omit<AlertProps, "open" | "setAlert">, timeout = 0) => {
+    setAlert({
+      ...alertProps,
+      open: true
+    });
+
+    if (timeout > 0) {
+      setTimeout(() => {
+        setAlert({
+          ...alertProps,
+          open: false
+        });
+      }, timeout);
+    }
+  };
+
   const executeExternalData = (value: string) => {
     try {
       const data = decryptExternalData(value);
@@ -72,7 +91,13 @@ export default function AppContextProvider ({ children }: { children: ReactEleme
   }, []);
 
   return (
-    <AppContext.Provider value={{ externalData, user, setUser, currentScreen, setScreen }}>
+    <AppContext.Provider value={{
+      externalData,
+      user, setUser,
+      currentScreen, setScreen,
+      addAlert
+    }}>
+      {alert && <Alert {...alert} setAlert={setAlert} />}
       {children}
     </AppContext.Provider>
   );
