@@ -1,13 +1,18 @@
 import  { useEffect, useRef, useState } from "react";
-import { PanResponder } from "react-native";
-import { Alert as NativeBaseAlert, Center, Slide,Text, View } from "native-base";
+import { PanResponder, Platform } from "react-native";
+import { Alert as NativeBaseAlert, Center, Slide, Text } from "native-base";
 
 import { AlertProps } from "./types";
 
 export default function Alert(props: AlertProps) {
   const { open, status, message, setAlert } = props;
 
+  const plusStatusBarPadding = Platform.OS === `ios` ? 50 : 0;
+
   const [alertBottom, setAlertBottom] = useState(0);
+  const [alertPaddingTop, setAlertPaddingTop] = useState(plusStatusBarPadding);
+
+  const range = 25;
 
   const panResponder = useRef(
     PanResponder.create({
@@ -17,16 +22,23 @@ export default function Alert(props: AlertProps) {
         if (newY >= 0) {
           setAlertBottom(newY);
         } else {
-          setAlertBottom(0);
+          const pt = (newY * -1);
+
+          if (pt <= range * 3) {
+            setAlertPaddingTop(pt + plusStatusBarPadding);
+          }
         }
       },
       onPanResponderEnd: (e, gestureState) => {
         const newY = Math.round(gestureState.dy * -1);
-        if (newY >= 20) {
+        if (newY >= range) {
           setAlert({
             ...props,
             open: false
           });
+        } else {
+          setAlertPaddingTop(plusStatusBarPadding);
+          setAlertBottom(0);
         }
       },
     })
@@ -40,9 +52,13 @@ export default function Alert(props: AlertProps) {
 
   return (
     <Center>
-      <Slide in={open} placement="top" duration={1000} delay={3000}>
-        <NativeBaseAlert justifyContent="center" status={status} _ios={{pt: 16}} {...panResponder.panHandlers} bottom={`${alertBottom}px`}>
-          <Text color={`${status}.600`} m={2} fontWeight="medium">{ message }</Text>
+      <Slide in={open} placement="top" duration={1000}>
+        { /* @ts-ignore */ }
+        <NativeBaseAlert _web={{cursor: `grab`}} justifyContent="center" status={status} {...panResponder.panHandlers} bottom={`${alertBottom}px`} pt={`${alertPaddingTop}px`} >
+          { /* @ts-ignore */ }
+          <Text _web={{ userSelect: `none` }} color={`${status}.600`} m={2} fontWeight="medium">{ message }</Text>
+          { /* @ts-ignore */ }
+          <Text _web={{ userSelect: `none` }} disabled color={`${status}.300`} mt={2} fontSize={10} fontWeight="medium">Drag to Dimiss</Text>
         </NativeBaseAlert>
       </Slide>
     </Center>
