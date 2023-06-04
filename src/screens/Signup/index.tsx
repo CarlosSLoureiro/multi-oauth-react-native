@@ -5,30 +5,45 @@ import AppContext from "@contexts/AppContext";
 
 import BaseScreen from "@components/BaseScreen";
 
+import SignupRequest from "@remote/Signup";
+import { RequestSignupData } from "@remote/Signup/types";
+
 export default function SignupScreen () {
   const { setScreen, user, addAlert } = useContext(AppContext);
   const [isRegistering, setIsRegistering] = useState(false);
 
-  const [errors, setErrors] = useState({});
-  const [formData, setFormData] = useState({});
+  const [feildWithErrors, setFieldsWithErrors] = useState<string[]>([]);
+  const [formData, setFormData] = useState<RequestSignupData>({} as RequestSignupData);
 
   const onPressBackToLogin = () => {
     setScreen(`Login`);
   };
 
   const onPressRegister = () => {
-    // setIsRegistering(true);
+    void (async () => {
+      try {
+        setIsRegistering(true);
 
-    console.log(`send data to api ->`, formData);
-    setErrors({name: `test`});
-    addAlert({
-      status: `error`,
-      message: `test treas s asasda sasd asd asda sd`
-    });
+        const response = await SignupRequest(formData);
+
+        if (!response.error) {
+          console.log(response);
+        } else {
+          addAlert({ status: `error`, message: response.message ? `${response.error}: ${response?.message}` : response.error });
+          if (response.fields) {
+            setFieldsWithErrors(response.fields);
+          }
+        }
+      } catch (error: any) {
+        addAlert({ status: `error`, message: error.message });
+      } finally {
+        setIsRegistering(false);
+      }
+    })();
   };
 
   useEffect(() => {
-    setErrors({});
+    setFieldsWithErrors([]);
   }, [formData]);
 
   useEffect(() => {
@@ -57,25 +72,25 @@ export default function SignupScreen () {
             <VStack space={3} mt="5">
               <FormControl>
                 <FormControl.Label>Full Name</FormControl.Label>
-                <Input isRequired isDisabled={isRegistering} isInvalid={`name` in errors} onChangeText={value => setFormData({ ...formData,
+                <Input isRequired isDisabled={isRegistering} isInvalid={feildWithErrors.includes(`name`)} onChangeText={value => setFormData({ ...formData,
                   name: value
                 })} />
               </FormControl>
               <FormControl>
                 <FormControl.Label>Email</FormControl.Label>
-                <Input isRequired isDisabled={isRegistering} onChangeText={value => setFormData({ ...formData,
+                <Input isRequired isDisabled={isRegistering} isInvalid={feildWithErrors.includes(`email`)} onChangeText={value => setFormData({ ...formData,
                   email: value
                 })} />
               </FormControl>
               <FormControl>
                 <FormControl.Label>Password</FormControl.Label>
-                <Input type="password" isRequired isDisabled={isRegistering} onChangeText={value => setFormData({ ...formData,
+                <Input type="password" isRequired isDisabled={isRegistering} isInvalid={feildWithErrors.includes(`password`)}  onChangeText={value => setFormData({ ...formData,
                   password: value
                 })}/>
               </FormControl>
               <FormControl>
                 <FormControl.Label>Confirm Password</FormControl.Label>
-                <Input type="password" isRequired isDisabled={isRegistering} onChangeText={value => setFormData({ ...formData,
+                <Input type="password" isRequired isDisabled={isRegistering} isInvalid={feildWithErrors.includes(`confirmPassword`)}  onChangeText={value => setFormData({ ...formData,
                   confirmPassword: value
                 })}/>
               </FormControl>

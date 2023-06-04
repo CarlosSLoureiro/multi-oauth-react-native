@@ -20,6 +20,7 @@
       "@components/*": ["components/*"],
       "@contexts/*": ["contexts/*"],
       "@hooks/*": ["hooks/*"],
+      "@remote/*": ["remote/*"],
       "@screens/*": ["screens/*"],
       "@utils/*": ["utils/*"]
     }
