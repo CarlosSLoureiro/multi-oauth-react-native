@@ -7,7 +7,7 @@ import { AlertProps } from "./types";
 export default function Alert(props: AlertProps) {
   const { open, status, message, setAlert } = props;
 
-  const plusStatusBarPadding = Platform.OS === `ios` ? 50 : 0;
+  const plusStatusBarPadding = Platform.OS === `ios` ? 50 : 10;
 
   const [alertBottom, setAlertBottom] = useState(0);
   const [alertPaddingTop, setAlertPaddingTop] = useState(plusStatusBarPadding);
