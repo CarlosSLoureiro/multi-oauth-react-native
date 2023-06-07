@@ -20,6 +20,7 @@ export default function AppContextProvider ({ children }: { children: ReactEleme
   const [user, setUser] = useState<UserInterface | undefined>(undefined);
 
   const [alert, setAlert] = useState<Omit<AlertProps, "setAlert"> | undefined>(undefined);
+  const [alertTimeout, setAlertTimeout] = useState<NodeJS.Timeout | null>(null);
 
   const [currentScreen, setCurrentScreen] = useState<ScreenInterface>((): ScreenInterface => {
     if (Platform.OS !== `web`) {
@@ -60,18 +61,26 @@ export default function AppContextProvider ({ children }: { children: ReactEleme
   };
 
   const addAlert = (alertProps: Omit<AlertProps, "open" | "setAlert">, timeout = 0) => {
+    if (alertTimeout) {
+      clearTimeout(alertTimeout);
+      setAlertTimeout(null);
+    }
+
     setAlert({
       ...alertProps,
       open: true
     });
 
     if (timeout > 0) {
-      setTimeout(() => {
+      const newAlertTimeout = setTimeout(() => {
         setAlert({
           ...alertProps,
           open: false
         });
+        setAlertTimeout(null);
       }, timeout);
+
+      setAlertTimeout(newAlertTimeout);
     }
   };
 
@@ -97,6 +106,23 @@ export default function AppContextProvider ({ children }: { children: ReactEleme
       return;
     }
   }, [user, currentScreen]);
+
+  useEffect(() => {
+    if (user) {
+      void(async () => {
+        const returnScreen = await AsyncStorage.getItem(`@ReturnScreen`);
+        try {
+          if (returnScreen !== null) {
+            await AsyncStorage.removeItem(`@ReturnScree`);
+            setScreen(returnScreen);
+          }
+        } catch (e) {
+          setScreen(`Home`);
+        }
+      }
+      )();
+    }
+  }, [user]);
 
   useEffect(() => {
     void (async () => {

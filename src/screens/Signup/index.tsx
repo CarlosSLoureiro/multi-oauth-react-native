@@ -8,10 +8,8 @@ import BaseScreen from "@components/BaseScreen";
 import SignupRequest from "@remote/Signup";
 import { RequestSignupData } from "@remote/Signup/types";
 
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
 export default function SignupScreen () {
-  const { setScreen, user, updateUser, addAlert } = useContext(AppContext);
+  const { setScreen, updateUser, addAlert } = useContext(AppContext);
   const [isRegistering, setIsRegistering] = useState(false);
 
   const [feildWithErrors, setFieldsWithErrors] = useState<string[]>([]);
@@ -29,9 +27,10 @@ export default function SignupScreen () {
         const response = await SignupRequest(formData);
 
         if (!response.error) {
+          addAlert({ status: `success`, message: `Welcome ${response.name.split(` `)[0]}! Your account has successfully registered!` }, 10000);
           updateUser(response);
         } else {
-          addAlert({ status: `error`, message: response.message ? `${response.error}: ${response?.message}` : response.error });
+          addAlert({ status: `error`, message: response.message ? `${response.error}: ${response?.message}` : response.error }, 5000);
           if (response.fields) {
             setFieldsWithErrors(response.fields);
           }
@@ -47,20 +46,6 @@ export default function SignupScreen () {
   useEffect(() => {
     setFieldsWithErrors([]);
   }, [formData]);
-
-  useEffect(() => {
-    if (user) {
-      void(async () => {
-        const returnScreen = await AsyncStorage.getItem(`@ReturnScreen`);
-        try {
-          setScreen(returnScreen !== null ? returnScreen : `Home`);
-        } catch (e) {
-          setScreen(`Home`);
-        }
-      }
-      )();
-    }
-  }, [user]);
 
   return (
     <BaseScreen>
