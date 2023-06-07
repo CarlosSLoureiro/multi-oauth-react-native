@@ -1,5 +1,4 @@
 import { useContext, useEffect } from 'react';
-import { Platform } from 'react-native';
 import { BrowserRouter, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 
 import AppContext from '@contexts/AppContext';
