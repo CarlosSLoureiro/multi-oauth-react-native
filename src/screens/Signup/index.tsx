@@ -8,8 +8,10 @@ import BaseScreen from "@components/BaseScreen";
 import SignupRequest from "@remote/Signup";
 import { RequestSignupData } from "@remote/Signup/types";
 
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 export default function SignupScreen () {
-  const { setScreen, user, addAlert } = useContext(AppContext);
+  const { setScreen, user, updateUser, addAlert } = useContext(AppContext);
   const [isRegistering, setIsRegistering] = useState(false);
 
   const [feildWithErrors, setFieldsWithErrors] = useState<string[]>([]);
@@ -27,7 +29,7 @@ export default function SignupScreen () {
         const response = await SignupRequest(formData);
 
         if (!response.error) {
-          console.log(response);
+          updateUser(response);
         } else {
           addAlert({ status: `error`, message: response.message ? `${response.error}: ${response?.message}` : response.error });
           if (response.fields) {
@@ -48,7 +50,15 @@ export default function SignupScreen () {
 
   useEffect(() => {
     if (user) {
-      setScreen(`Home`);
+      void(async () => {
+        const returnScreen = await AsyncStorage.getItem(`@ReturnScreen`);
+        try {
+          setScreen(returnScreen !== null ? returnScreen : `Home`);
+        } catch (e) {
+          setScreen(`Home`);
+        }
+      }
+      )();
     }
   }, [user]);
 

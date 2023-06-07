@@ -5,6 +5,9 @@ import { AlertProps } from "@components/Main/Alert/types";
 export interface UserInterface {
   id: number;
   name: string;
+  email: string;
+  picture: string;
+  token: string;
 }
 
 export interface ScreenInterface {

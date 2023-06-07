@@ -1,3 +1,5 @@
+import { UserInterface } from "@contexts/AppContext/types";
+
 import { ErrorResponseData } from "@remote/types";
 
 export interface RequestSignupData {
@@ -7,11 +9,6 @@ export interface RequestSignupData {
   confirmPassword: string;
 }
 
-export interface SuccessResponseSignupData {
-  id: number;
-  name: string;
-  email: string;
-  token: string;
-}
+export type SuccessResponseSignupData = UserInterface;
 
 export type ResponseSignupData = SuccessResponseSignupData & ErrorResponseData;

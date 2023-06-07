@@ -12,10 +12,15 @@ import AppContext from '.';
 
 import { ScreenInterface, UserInterface } from './types';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 export default function AppContextProvider ({ children }: { children: ReactElement }) {
   const [externalData, setExternalData] = useState<object>({});
+
   const [user, setUser] = useState<UserInterface | undefined>(undefined);
+
   const [alert, setAlert] = useState<Omit<AlertProps, "setAlert"> | undefined>(undefined);
+
   const [currentScreen, setCurrentScreen] = useState<ScreenInterface>((): ScreenInterface => {
     if (Platform.OS !== `web`) {
       return screens.find(screen => screen.name === `Home`) as ScreenInterface;
@@ -25,17 +30,24 @@ export default function AppContextProvider ({ children }: { children: ReactEleme
     }
   });
 
-  useEffect(() => {
-    if (currentScreen?.requireUser && !user) {
-      setCurrentScreen(screens.find(screen => screen.name === `Login`) as ScreenInterface);
-      return;
-    }
-  }, [user, currentScreen]);
+  const updateUser = (userData: UserInterface) => {
+    const newUserData = {...user, ...userData};
+
+    void (async () => {
+      await AsyncStorage.setItem(`@UserData`, JSON.stringify(newUserData));
+    })();
+
+    setUser(newUserData);
+  };
 
   const setScreen = (name: string) => {
     for (const screen of screens) {
       if (screen.name === name) {
         if (screen?.requireUser && !user) {
+          void (async () => {
+            await AsyncStorage.setItem(`@ReturnScreen`, screen.name);
+          })();
+
           setCurrentScreen(screens.find(screen => screen.name === `Login`) as ScreenInterface);
           return;
         }
@@ -76,6 +88,26 @@ export default function AppContextProvider ({ children }: { children: ReactEleme
   };
 
   useEffect(() => {
+    if (currentScreen?.requireUser && !user) {
+      void (async () => {
+        await AsyncStorage.setItem(`@ReturnScreen`, currentScreen.name);
+      })();
+
+      setCurrentScreen(screens.find(screen => screen.name === `Login`) as ScreenInterface);
+      return;
+    }
+  }, [user, currentScreen]);
+
+  useEffect(() => {
+    void (async () => {
+      const userData = await AsyncStorage.getItem(`@UserData`);
+      if (userData !== null) {
+        setUser(JSON.parse(userData));
+      }
+    })();
+  }, []);
+
+  useEffect(() => {
     if (Platform.OS !== `web`) {
       Linking.addEventListener(`url`, ({ url }) => {
         const match = url.match(/\/\?(.*)/);
@@ -93,7 +125,7 @@ export default function AppContextProvider ({ children }: { children: ReactEleme
   return (
     <AppContext.Provider value={{
       externalData,
-      user, setUser,
+      user, updateUser,
       currentScreen, setScreen,
       addAlert
     }}>
