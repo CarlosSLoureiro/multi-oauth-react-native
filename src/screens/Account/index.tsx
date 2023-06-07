@@ -7,7 +7,7 @@ import AppContext from "@contexts/AppContext";
 import BaseScreen from "@components/BaseScreen";
 
 export default function GenericAccountScreen() {
-  const { setScreen } = useContext(AppContext);
+  const { setScreen, user } = useContext(AppContext);
 
   const navigateToActivities = () => {
     setScreen(`Activities`);
@@ -15,7 +15,7 @@ export default function GenericAccountScreen() {
 
   return (
     <BaseScreen>
-      <Text>Account Screen</Text>
+      <Text>Account Screen from {user?.name}</Text>
       <Button title="Go to Activities" onPress={navigateToActivities} />
     </BaseScreen>
   );

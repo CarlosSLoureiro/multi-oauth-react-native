@@ -18,6 +18,7 @@ export default function AppContextProvider ({ children }: { children: ReactEleme
   const [externalData, setExternalData] = useState<object>({});
 
   const [user, setUser] = useState<UserInterface | undefined>(undefined);
+  const [asyncUserLoaded, setAsyncUserLoaded] = useState(false);
 
   const [alert, setAlert] = useState<Omit<AlertProps, "setAlert"> | undefined>(undefined);
   const [alertTimeout, setAlertTimeout] = useState<NodeJS.Timeout | null>(null);
@@ -97,6 +98,20 @@ export default function AppContextProvider ({ children }: { children: ReactEleme
   };
 
   useEffect(() => {
+    void (async () => {
+      const userData = await AsyncStorage.getItem(`@UserData`);
+      if (userData !== null) {
+        setUser(JSON.parse(userData));
+      }
+      setAsyncUserLoaded(true);
+    })();
+  }, []);
+
+  useEffect(() => {
+    if (!asyncUserLoaded) {
+      return;
+    }
+
     if (currentScreen?.requireUser && !user) {
       void (async () => {
         await AsyncStorage.setItem(`@ReturnScreen`, currentScreen.name);
@@ -105,7 +120,7 @@ export default function AppContextProvider ({ children }: { children: ReactEleme
       setCurrentScreen(screens.find(screen => screen.name === `Login`) as ScreenInterface);
       return;
     }
-  }, [user, currentScreen]);
+  }, [asyncUserLoaded, user, currentScreen]);
 
   useEffect(() => {
     if (user) {
@@ -113,7 +128,7 @@ export default function AppContextProvider ({ children }: { children: ReactEleme
         const returnScreen = await AsyncStorage.getItem(`@ReturnScreen`);
         try {
           if (returnScreen !== null) {
-            await AsyncStorage.removeItem(`@ReturnScree`);
+            await AsyncStorage.removeItem(`@ReturnScreen`);
             setScreen(returnScreen);
           }
         } catch (e) {
@@ -123,15 +138,6 @@ export default function AppContextProvider ({ children }: { children: ReactEleme
       )();
     }
   }, [user]);
-
-  useEffect(() => {
-    void (async () => {
-      const userData = await AsyncStorage.getItem(`@UserData`);
-      if (userData !== null) {
-        setUser(JSON.parse(userData));
-      }
-    })();
-  }, []);
 
   useEffect(() => {
     if (Platform.OS !== `web`) {
