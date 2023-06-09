@@ -20,7 +20,7 @@ export interface ScreenInterface {
 export interface AppContextInterface {
   externalData: object;
   user?: UserInterface;
-  updateUser: (user: UserInterface) => void;
+  updateUser: (user?: UserInterface) => void;
   currentScreen: ScreenInterface;
   setScreen: (name: string) => void;
   addAlert: (name: Omit<AlertProps, "open" | "setAlert">, timeout?: number) => void;

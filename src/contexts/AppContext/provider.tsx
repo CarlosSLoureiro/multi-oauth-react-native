@@ -32,14 +32,22 @@ export default function AppContextProvider ({ children }: { children: ReactEleme
     }
   });
 
-  const updateUser = (userData: UserInterface) => {
-    const newUserData = {...user, ...userData};
+  const updateUser = (userData?: UserInterface) => {
+    if (userData) {
+      const newUserData = {...user, ...userData};
 
-    void (async () => {
-      await AsyncStorage.setItem(`@UserData`, JSON.stringify(newUserData));
-    })();
+      void (async () => {
+        await AsyncStorage.setItem(`@UserData`, JSON.stringify(newUserData));
+      })();
 
-    setUser(newUserData);
+      setUser(newUserData);
+    } else {
+      void (async () => {
+        await AsyncStorage.removeItem(`@UserData`);
+      })();
+
+      setUser(undefined);
+    }
   };
 
   const setScreen = (name: string) => {
