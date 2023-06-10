@@ -20,13 +20,16 @@ import TSIcon from '@components/HomeScreen/Icons/TSIcon';
 import WebIcon from '@components/HomeScreen/Icons/WebIcon';
 
 export default function HomeScreen() {
-  const [firstMessage, setFirstMessage] = useState<string>(`Hey there!`);
+  const defaultFirstMessage = `Hey there!`;
+  const [firstMessage, setFirstMessage] = useState<string>(defaultFirstMessage);
 
   const { user } = useContext(AppContext);
 
   useEffect(() => {
     if (user) {
       setFirstMessage(`Hello ${user.name.split(` `)[0]}!`);
+    } else {
+      setFirstMessage(defaultFirstMessage);
     }
   }, [user]);
 

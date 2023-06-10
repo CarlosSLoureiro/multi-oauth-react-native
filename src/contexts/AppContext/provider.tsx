@@ -7,15 +7,16 @@ import { AlertProps } from '@components/Main/Alert/types';
 import { screens } from '@screens/config';
 
 import decryptExternalData from '@utils/data-manager/decrypt';
+import encryptExternalData from '@utils/data-manager/encrypt';
 
 import AppContext from '.';
 
-import { ScreenInterface, UserInterface } from './types';
+import { ExternalDataInterface, ScreenInterface, UserInterface } from './types';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function AppContextProvider ({ children }: { children: ReactElement }) {
-  const [externalData, setExternalData] = useState<object>({});
+  const [externalData, setExternalData] = useState<ExternalDataInterface>({} as ExternalDataInterface);
 
   const [user, setUser] = useState<UserInterface | undefined>(undefined);
   const [asyncUserLoaded, setAsyncUserLoaded] = useState(false);
@@ -37,7 +38,7 @@ export default function AppContextProvider ({ children }: { children: ReactEleme
       const newUserData = {...user, ...userData};
 
       void (async () => {
-        await AsyncStorage.setItem(`@UserData`, JSON.stringify(newUserData));
+        await AsyncStorage.setItem(`@UserData`, encryptExternalData(newUserData));
       })();
 
       setUser(newUserData);
@@ -98,7 +99,7 @@ export default function AppContextProvider ({ children }: { children: ReactEleme
       const data = decryptExternalData(value);
 
       if (data) {
-        setExternalData(data);
+        setExternalData(data as ExternalDataInterface);
       }
     } catch (e) {
       console.log(`Invalid data!`);
@@ -109,7 +110,16 @@ export default function AppContextProvider ({ children }: { children: ReactEleme
     void (async () => {
       const userData = await AsyncStorage.getItem(`@UserData`);
       if (userData !== null) {
-        setUser(JSON.parse(userData));
+        try {
+          const decryptedData = decryptExternalData(userData);
+          if (decryptedData) {
+            setUser(decryptedData as UserInterface);
+          } else {
+            throw Error(`Could not decrypte user data`);
+          }
+        } catch (e) {
+          await AsyncStorage.removeItem(`@UserData`);
+        }
       }
       setAsyncUserLoaded(true);
     })();

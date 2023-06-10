@@ -17,8 +17,14 @@ export interface ScreenInterface {
   requireUser?: boolean;
 }
 
+export interface ExternalDataInterface {
+  action?: string;
+  error?: string;
+  data?: UserInterface;
+}
+
 export interface AppContextInterface {
-  externalData: object;
+  externalData: ExternalDataInterface;
   user?: UserInterface;
   updateUser: (user?: UserInterface) => void;
   currentScreen: ScreenInterface;

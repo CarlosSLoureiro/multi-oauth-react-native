@@ -3,6 +3,7 @@ import { Platform } from 'react-native';
 import { extendTheme } from "native-base";
 
 import AppContext from "@contexts/AppContext";
+import { UserInterface } from "@contexts/AppContext/types";
 
 import MobileScreens from "@components/Main/MobileScreens";
 import WebRoutes from "@components/Main/WebRoutes";
@@ -20,14 +21,18 @@ declare module "native-base" {
 }
 
 export default function App() {
-  const { currentScreen, externalData } = useContext(AppContext);
+  const { addAlert, user, updateUser, externalData } = useContext(AppContext);
 
   useEffect(() => {
-    console.log(`Screen -> `, currentScreen?.name);
-  }, [currentScreen]);
+    console.log(`User ->`, user);
+  }, [user]);
 
   useEffect(() => {
-    console.log(`externalData -> `, externalData);
+    if (externalData.error) {
+      addAlert({status: `error`, message: externalData.error });
+    } else if (externalData.action === `auth`) {
+      updateUser(externalData.data);
+    }
   }, [externalData]);
 
   return (
