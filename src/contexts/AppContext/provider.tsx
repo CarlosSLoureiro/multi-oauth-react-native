@@ -38,13 +38,13 @@ export default function AppContextProvider ({ children }: { children: ReactEleme
       const newUserData = {...user, ...userData};
 
       void (async () => {
-        await AsyncStorage.setItem(`@UserData`, encryptExternalData(newUserData));
+        await AsyncStorage.setItem(`APP_USER_DATA`, encryptExternalData(newUserData));
       })();
 
       setUser(newUserData);
     } else {
       void (async () => {
-        await AsyncStorage.removeItem(`@UserData`);
+        await AsyncStorage.removeItem(`APP_USER_DATA`);
       })();
 
       setUser(undefined);
@@ -108,7 +108,7 @@ export default function AppContextProvider ({ children }: { children: ReactEleme
 
   useEffect(() => {
     void (async () => {
-      const userData = await AsyncStorage.getItem(`@UserData`);
+      const userData = await AsyncStorage.getItem(`APP_USER_DATA`);
       if (userData !== null) {
         try {
           const decryptedData = decryptExternalData(userData);
@@ -118,7 +118,7 @@ export default function AppContextProvider ({ children }: { children: ReactEleme
             throw Error(`Could not decrypte user data`);
           }
         } catch (e) {
-          await AsyncStorage.removeItem(`@UserData`);
+          await AsyncStorage.removeItem(`APP_USER_DATA`);
         }
       }
       setAsyncUserLoaded(true);
