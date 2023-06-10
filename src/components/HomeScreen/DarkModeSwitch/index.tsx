@@ -3,8 +3,18 @@ import { Platform } from "react-native";
 import * as NavigationBar from 'expo-navigation-bar';
 import { Heading, HStack, Switch, Text, Tooltip, useColorMode } from "native-base";
 
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 export default function DarkModeSwitch() {
-  const { colorMode, toggleColorMode } = useColorMode();
+  const { colorMode, setColorMode } = useColorMode();
+
+  const toggleColorMode = () => {
+    void (async () => {
+      const newColorMode = (colorMode === `light`) ? `dark` : `light`;
+      await AsyncStorage.setItem(`APP_COLOR_MODE`, newColorMode);
+      setColorMode(newColorMode);
+    })();
+  };
 
   useEffect(() => {
     if (Platform.OS === `android`) {
