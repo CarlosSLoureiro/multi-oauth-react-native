@@ -1,5 +1,5 @@
-import { useContext, useEffect } from 'react';
-import { StatusBar, StatusBarProps } from 'react-native';
+import { useContext, useEffect, useState } from 'react';
+import { Keyboard, Platform, StatusBar, StatusBarProps } from 'react-native';
 import { useColorModeValue } from 'native-base';
 
 import AppContext from '@contexts/AppContext';
@@ -12,11 +12,31 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNavigationContainerRef } from '@react-navigation/native';
 import { NavigationContainer } from '@react-navigation/native';
 
-
 export default function MobileScreens () {
   const Tab = createBottomTabNavigator();
   const navigationRef = createNavigationContainerRef();
   const { currentScreen } = useContext(AppContext);
+  const [keyboardVisible, setKeyboardVisible] = useState(false);
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      Platform.OS === `android` ? `keyboardDidShow` : `keyboardWillShow`,
+      () => {
+        setKeyboardVisible(true);
+      }
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      Platform.OS === `android` ? `keyboardDidHide` : `keyboardWillHide`,
+      () => {
+        setKeyboardVisible(false);
+      }
+    );
+
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
 
   useEffect(() => {
     if (currentScreen !== undefined) {
@@ -40,7 +60,7 @@ export default function MobileScreens () {
           headerShown: false,
           headerTitleAlign: `center`,
         }}
-        tabBar={props => <BottonMenu />}
+        tabBar={props => keyboardVisible ? <></> : <BottonMenu />}
       >
         {screens.map((screen) => (
           <Tab.Screen key={screen.name} name={screen.name} component={screen.screen} />
