@@ -56,7 +56,7 @@ export default function AppContextProvider ({ children }: { children: ReactEleme
       if (screen.name === name) {
         if (screen?.requireUser && !user) {
           void (async () => {
-            await AsyncStorage.setItem(`@ReturnScreen`, screen.name);
+            await AsyncStorage.setItem(`APP_RETURN_SCREEN`, screen.name);
           })();
 
           setCurrentScreen(screens.find(screen => screen.name === `Login`) as ScreenInterface);
@@ -132,7 +132,7 @@ export default function AppContextProvider ({ children }: { children: ReactEleme
 
     if (currentScreen?.requireUser && !user) {
       void (async () => {
-        await AsyncStorage.setItem(`@ReturnScreen`, currentScreen.name);
+        await AsyncStorage.setItem(`APP_RETURN_SCREEN`, currentScreen.name);
       })();
 
       setCurrentScreen(screens.find(screen => screen.name === `Login`) as ScreenInterface);
@@ -143,10 +143,10 @@ export default function AppContextProvider ({ children }: { children: ReactEleme
   useEffect(() => {
     if (user) {
       void(async () => {
-        const returnScreen = await AsyncStorage.getItem(`@ReturnScreen`);
+        const returnScreen = await AsyncStorage.getItem(`APP_RETURN_SCREEN`);
         try {
           if (returnScreen !== null) {
-            await AsyncStorage.removeItem(`@ReturnScreen`);
+            await AsyncStorage.removeItem(`APP_RETURN_SCREEN`);
             setScreen(returnScreen);
           }
         } catch (e) {
