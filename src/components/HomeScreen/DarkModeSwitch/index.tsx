@@ -11,8 +11,8 @@ export default function DarkModeSwitch() {
   const toggleColorMode = () => {
     void (async () => {
       const newColorMode = (colorMode === `light`) ? `dark` : `light`;
-      await AsyncStorage.setItem(`APP_COLOR_MODE`, newColorMode);
       setColorMode(newColorMode);
+      await AsyncStorage.setItem(`APP_COLOR_MODE`, newColorMode);
     })();
   };
 
