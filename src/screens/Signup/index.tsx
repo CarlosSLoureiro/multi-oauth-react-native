@@ -29,6 +29,8 @@ export default function SignupScreen () {
         if (!response.error) {
           addAlert({ status: `success`, message: `Welcome ${response.name.split(` `)[0]}! Your account has successfully registered!` }, 10000);
           updateUser(response);
+          setFormData({} as RequestSignupData);
+          setFieldsWithErrors([]);
         } else {
           addAlert({ status: `error`, message: response.message ? `${response.error}: ${response?.message}` : response.error }, 5000);
           if (response.fields) {
@@ -83,25 +85,25 @@ export default function SignupScreen () {
                 <FormControl.Label>Full Name</FormControl.Label>
                 <Input isRequired isDisabled={isRegistering} isInvalid={feildWithErrors.includes(`name`)} onChangeText={value => setFormData({ ...formData,
                   name: capitalizeName(value)
-                })} value={formData.name} />
+                })} value={formData.name || ``} />
               </FormControl>
               <FormControl>
                 <FormControl.Label>Email</FormControl.Label>
                 <Input isRequired isDisabled={isRegistering} isInvalid={feildWithErrors.includes(`email`)} onChangeText={value => setFormData({ ...formData,
                   email: value
-                })} />
+                })} value={formData.email || ``}/>
               </FormControl>
               <FormControl>
                 <FormControl.Label>Password</FormControl.Label>
                 <Input type="password" isRequired isDisabled={isRegistering} isInvalid={feildWithErrors.includes(`password`)}  onChangeText={value => setFormData({ ...formData,
                   password: value
-                })}/>
+                })} value={formData.password || ``}/>
               </FormControl>
               <FormControl>
                 <FormControl.Label>Confirm Password</FormControl.Label>
                 <Input type="password" isRequired isDisabled={isRegistering} isInvalid={feildWithErrors.includes(`confirmPassword`)}  onChangeText={value => setFormData({ ...formData,
                   confirmPassword: value
-                })}/>
+                })} value={formData.confirmPassword || ``}/>
               </FormControl>
               <Button
                 mt="2"
