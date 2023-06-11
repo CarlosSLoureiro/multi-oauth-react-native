@@ -10,8 +10,8 @@ import { RequestSignupData } from "@remote/Signup/types";
 
 export default function SignupScreen () {
   const { setScreen, updateUser, addAlert } = useContext(AppContext);
-  const [isRegistering, setIsRegistering] = useState(false);
 
+  const [isRegistering, setIsRegistering] = useState(false);
   const [feildWithErrors, setFieldsWithErrors] = useState<string[]>([]);
   const [formData, setFormData] = useState<RequestSignupData>({} as RequestSignupData);
 
@@ -43,6 +43,20 @@ export default function SignupScreen () {
     })();
   };
 
+  function capitalizeName(input: string): string {
+    const words = input.split(` `);
+
+    for (let i = 0; i < words.length; i++) {
+      const word = words[i];
+
+      if (i === 0 ||  ![`de`, `da`].includes(word.toLowerCase())) {
+        words[i] = word.charAt(0).toUpperCase() + word.slice(1);
+      }
+    }
+
+    return words.join(` `);
+  }
+
   useEffect(() => {
     setFieldsWithErrors([]);
   }, [formData]);
@@ -68,8 +82,8 @@ export default function SignupScreen () {
               <FormControl>
                 <FormControl.Label>Full Name</FormControl.Label>
                 <Input isRequired isDisabled={isRegistering} isInvalid={feildWithErrors.includes(`name`)} onChangeText={value => setFormData({ ...formData,
-                  name: value
-                })} />
+                  name: capitalizeName(value)
+                })} value={formData.name} />
               </FormControl>
               <FormControl>
                 <FormControl.Label>Email</FormControl.Label>
