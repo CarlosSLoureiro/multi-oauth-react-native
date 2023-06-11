@@ -83,7 +83,7 @@ export default function LoginScreen () {
               </FormControl>
               <FormControl>
                 <FormControl.Label>Password</FormControl.Label>
-                <Input type="text" isRequired isDisabled={isLoggingIn} isInvalid={feildWithErrors.includes(`password`)}  onChangeText={value => setFormData({ ...formData,
+                <Input type="password" isRequired isDisabled={isLoggingIn} isInvalid={feildWithErrors.includes(`password`)}  onChangeText={value => setFormData({ ...formData,
                   password: value
                 })} value={formData.password || ``}  />
                 <Link _text={{
