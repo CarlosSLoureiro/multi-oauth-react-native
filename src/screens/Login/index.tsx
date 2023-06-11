@@ -8,9 +8,39 @@ import FacebookIcon from "@components/HomeScreen/Icons/FacebookIcon";
 import GoogleIcon from "@components/HomeScreen/Icons/GoogleIcon";
 import OAuth2LoginButton from "@components/LoginScreen/OAuth2LoginButton";
 
+import LoginRequest from "@remote/Login";
+import { RequestLoginData } from "@remote/Login/types";
+
 export default function LoginScreen () {
-  const { setScreen } = useContext(AppContext);
-  const [loggingIn, setLoggingIn] = useState(false);
+  const { setScreen, addAlert, updateUser } = useContext(AppContext);
+
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
+  const [feildWithErrors, setFieldsWithErrors] = useState<string[]>([]);
+  const [formData, setFormData] = useState<RequestLoginData>({} as RequestLoginData);
+
+  const onPressSignIn = () => {
+    void (async () => {
+      try {
+        setIsLoggingIn(true);
+
+        const response = await LoginRequest(formData);
+
+        if (!response.error) {
+          addAlert({ status: `success`, message: `Welcome ${response.name.split(` `)[0]}!` }, 10000);
+          updateUser(response);
+        } else {
+          addAlert({ status: `error`, message: response.message ? `${response.error}: ${response?.message}` : response.error }, 5000);
+          if (response.fields) {
+            setFieldsWithErrors(response.fields);
+          }
+        }
+      } catch (error: any) {
+        addAlert({ status: `error`, message: error.message });
+      } finally {
+        setIsLoggingIn(false);
+      }
+    })();
+  };
 
   const onPressSignUp = () => {
     setScreen(`Sign Up`);
@@ -45,11 +75,15 @@ export default function LoginScreen () {
             <VStack space={3} mt="5">
               <FormControl>
                 <FormControl.Label>Email</FormControl.Label>
-                <Input />
+                <Input isRequired isDisabled={isLoggingIn} isInvalid={feildWithErrors.includes(`name`)} onChangeText={value => setFormData({ ...formData,
+                  email: value
+                })} />
               </FormControl>
               <FormControl>
                 <FormControl.Label>Password</FormControl.Label>
-                <Input type="password" />
+                <Input type="text" isRequired isDisabled={isLoggingIn} isInvalid={feildWithErrors.includes(`password`)}  onChangeText={value => setFormData({ ...formData,
+                  password: value
+                })}/>
                 <Link _text={{
                   fontSize: `xs`,
                   fontWeight: `500`,
@@ -63,8 +97,8 @@ export default function LoginScreen () {
                 colorScheme="indigo"
                 spinnerPlacement="end"
                 isLoadingText="Logging in"
-                isLoading={loggingIn}
-                onPress={() => setLoggingIn(true)}
+                isLoading={isLoggingIn}
+                onPress={onPressSignIn}
               >
                 Sign in
               </Button>
