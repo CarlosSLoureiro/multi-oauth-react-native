@@ -28,6 +28,8 @@ export default function LoginScreen () {
         if (!response.error) {
           addAlert({ status: `success`, message: `Welcome ${response.name.split(` `)[0]}!` }, 10000);
           updateUser(response);
+          setFormData({} as RequestLoginData);
+          setFieldsWithErrors([]);
         } else {
           addAlert({ status: `error`, message: response.message ? `${response.error}: ${response?.message}` : response.error }, 5000);
           if (response.fields) {
@@ -75,15 +77,15 @@ export default function LoginScreen () {
             <VStack space={3} mt="5">
               <FormControl>
                 <FormControl.Label>Email</FormControl.Label>
-                <Input isRequired isDisabled={isLoggingIn} isInvalid={feildWithErrors.includes(`name`)} onChangeText={value => setFormData({ ...formData,
+                <Input isRequired isDisabled={isLoggingIn} isInvalid={feildWithErrors.includes(`email`)} onChangeText={value => setFormData({ ...formData,
                   email: value
-                })} />
+                })} value={formData.email || ``} />
               </FormControl>
               <FormControl>
                 <FormControl.Label>Password</FormControl.Label>
                 <Input type="text" isRequired isDisabled={isLoggingIn} isInvalid={feildWithErrors.includes(`password`)}  onChangeText={value => setFormData({ ...formData,
                   password: value
-                })}/>
+                })} value={formData.password || ``}  />
                 <Link _text={{
                   fontSize: `xs`,
                   fontWeight: `500`,
