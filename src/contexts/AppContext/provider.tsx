@@ -14,6 +14,7 @@ import AppContext from '.';
 import { ExternalDataInterface, ScreenInterface, UserInterface } from './types';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import QueryString from 'query-string';
 
 export default function AppContextProvider ({ children }: { children: ReactElement }) {
   const [externalData, setExternalData] = useState<ExternalDataInterface>({} as ExternalDataInterface);
@@ -96,10 +97,15 @@ export default function AppContextProvider ({ children }: { children: ReactEleme
 
   const executeExternalData = (value: string) => {
     try {
-      const data = decryptExternalData(value);
+      const searchParams = QueryString.parse(value);
+      const data = searchParams.data ? String(searchParams.data) : null;
 
       if (data) {
-        setExternalData(data as ExternalDataInterface);
+        const dataDecrypted = decryptExternalData(data);
+
+        if (dataDecrypted) {
+          setExternalData(dataDecrypted as ExternalDataInterface);
+        }
       }
     } catch (e) {
       console.log(`Invalid data!`);
