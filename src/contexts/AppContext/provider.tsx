@@ -9,6 +9,8 @@ import { screens } from '@screens/config';
 import decryptExternalData from '@utils/data-manager/decrypt';
 import encryptExternalData from '@utils/data-manager/encrypt';
 
+import AuthCheckRequest from '@remote/AuthCheck';
+
 import AppContext from '.';
 
 import { ExternalDataInterface, ScreenInterface, UserInterface } from './types';
@@ -20,6 +22,7 @@ export default function AppContextProvider ({ children }: { children: ReactEleme
   const [externalData, setExternalData] = useState<ExternalDataInterface>({} as ExternalDataInterface);
 
   const [user, setUser] = useState<UserInterface | undefined>(undefined);
+  const [userTokenVerified, setUserTokenVerified] = useState(false);
   const [asyncUserLoaded, setAsyncUserLoaded] = useState(false);
 
   const [alert, setAlert] = useState<Omit<AlertProps, "setAlert"> | undefined>(undefined);
@@ -34,7 +37,7 @@ export default function AppContextProvider ({ children }: { children: ReactEleme
     }
   });
 
-  const updateUser = (userData?: UserInterface) => {
+  const updateUser = (userData?: Partial<UserInterface>) => {
     if (userData) {
       const newUserData = {...user, ...userData};
 
@@ -42,7 +45,7 @@ export default function AppContextProvider ({ children }: { children: ReactEleme
         await AsyncStorage.setItem(`APP_USER_DATA`, encryptExternalData(newUserData));
       })();
 
-      setUser(newUserData);
+      setUser(newUserData as UserInterface);
     } else {
       void (async () => {
         await AsyncStorage.removeItem(`APP_USER_DATA`);
@@ -112,6 +115,26 @@ export default function AppContextProvider ({ children }: { children: ReactEleme
     }
   };
 
+  const verifyUserToken = async (token: string) => {
+    try {
+      const response = await AuthCheckRequest(token);
+
+      if (!response.error) {
+        updateUser(response);
+      } else if (response.error === `Expired auth token`) {
+        addAlert({ status: `warning`, message: `Your session has been expired` }, 10000);
+        updateUser(undefined);
+      } else {
+        addAlert({ status: `error`, message: response.message ? `${response.error}: ${response?.message}` : response.error }, 5000);
+        updateUser(undefined);
+      }
+
+      setUserTokenVerified(true);
+    } catch (error: any) {
+      addAlert({ status: `error`, message: error.message });
+    }
+  };
+
   useEffect(() => {
     void (async () => {
       const userData = await AsyncStorage.getItem(`APP_USER_DATA`);
@@ -148,6 +171,10 @@ export default function AppContextProvider ({ children }: { children: ReactEleme
 
   useEffect(() => {
     if (user) {
+      if (!userTokenVerified) {
+        void verifyUserToken(user.token);
+      }
+
       void(async () => {
         const returnScreen = await AsyncStorage.getItem(`APP_RETURN_SCREEN`);
         try {
