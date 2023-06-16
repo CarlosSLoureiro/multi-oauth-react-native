@@ -35,7 +35,7 @@ export default function GenericActivitiesScreen() {
   };
 
   return (
-    <BaseScreen>
+    <BaseScreen enableScroll>
       <Text>Activities Screen</Text>
       <Button title="Go to Account" onPress={navigateToAccount} />
       <SekletonExample/>
