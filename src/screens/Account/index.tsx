@@ -1,17 +1,14 @@
 import { useContext } from "react";
-import { Button } from "react-native";
-import { Text } from "native-base";
+import { Button,Center, Text } from "native-base";
 
 import AppContext from "@contexts/AppContext";
 
+import AccountMenu from "@components/AccountScreen/Menu";
+import ProfileCard from "@components/AccountScreen/ProfileCard";
 import BaseScreen from "@components/BaseScreen";
 
 export default function GenericAccountScreen() {
-  const { setScreen, user, updateUser } = useContext(AppContext);
-
-  const navigateToActivities = () => {
-    setScreen(`Activities`);
-  };
+  const { user, updateUser } = useContext(AppContext);
 
   const onLogout = () => {
     updateUser(undefined);
@@ -19,9 +16,17 @@ export default function GenericAccountScreen() {
 
   return (
     <BaseScreen>
-      <Text>Account Screen from {user?.name}</Text>
-      <Button title="Go to Activities" onPress={navigateToActivities} />
-      <Button title="Logout" onPress={onLogout} />
+      <Center flex={1} px="3">
+        <Center w="100%">
+          <ProfileCard/>
+          <Button
+            style={{display: `none`}}
+            mt="2"
+            colorScheme="indigo"
+            onPress={onLogout}>Logout</Button>
+        </Center>
+        <AccountMenu/>
+      </Center>
     </BaseScreen>
   );
 }
