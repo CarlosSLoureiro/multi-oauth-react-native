@@ -1,21 +1,29 @@
-import React from 'react';
-import { Box, Button, Center, HStack, Icon, IconButton, NativeBaseProvider,Stagger, Text, useDisclose,View } from 'native-base';
+import { useContext } from 'react';
+import { Box, Button, HStack, Icon, Stagger, Text, useDisclose,View } from 'native-base';
+
+import AppContext from '@contexts/AppContext';
 
 import { containerBoxProps } from './styles';
 
-import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export default function AccountMenu () {
-  const {
-    isOpen,
-    onToggle
-  } = useDisclose();
+  const { updateUser } = useContext(AppContext);
+  const { isOpen, onToggle } = useDisclose();
+
+  const onLogout = () => {
+    updateUser(undefined);
+  };
+
   return <Box {...containerBoxProps}>
     <HStack justifyContent="flex-end">
       <Button variant="solid" borderRadius="full" size="lg" onPress={onToggle} bg="cyan.400">
-        <Icon as={<MaterialCommunityIcons name='cogs' />} size="5" color="warmGray.50" _dark={{
-          color: `warmGray.50`
-        }} />
+        <View flex={1} flexDir="row">
+          {isOpen && <Text paddingRight={2}>Settings</Text>}
+          <Icon as={<MaterialCommunityIcons name='cogs' />} size="5" color="warmGray.50" _dark={{
+            color: `warmGray.50`
+          }} />
+        </View>
       </Button>
     </HStack>
     <Box alignItems="flex-end">
@@ -58,7 +66,7 @@ export default function AccountMenu () {
             }} color="warmGray.50" />
           </View>
         </Button>
-        <Button mt="4" variant="solid" bg="red.500" colorScheme="red" borderRadius="full">
+        <Button mt="4" variant="solid" bg="red.500" colorScheme="red" borderRadius="full" onPress={onLogout}>
           <View flex={1} flexDir="row">
             <Text paddingRight={2}>Logout</Text>
             <Icon as={<MaterialCommunityIcons name='logout-variant' />} size="5" _dark={{
