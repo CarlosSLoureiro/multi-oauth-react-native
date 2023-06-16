@@ -1,6 +1,9 @@
 import { Image,Text,View } from 'native-base';
 
-export default function ProfileCard () {
+import { ProfileCardProps } from './types';
+
+export default function ProfileCard ({ user }: ProfileCardProps) {
+  const defaultPicture = `https://img.freepik.com/free-vector/hacker-operating-laptop-cartoon-icon-illustration-technology-icon-concept-isolated-flat-cartoon-style_138676-2387.jpg?w=360`;
   return (
     <View>
       <View style={{ alignItems: `center`, padding: 16 }}>
@@ -11,13 +14,13 @@ export default function ProfileCard () {
           marginBottom={5}>
           <Image
             alt='Profile Picture'
-            source={{ uri: `https://lh3.googleusercontent.com/a/AAcHTtcHcuERO_MND_7vQgxEw6Ed00I62hm7zZ-79fxpFg=s96-c` }}
+            source={{ uri: user.picture !== null ? user.picture : defaultPicture }}
             style={{ flex: 1, width: undefined, height: undefined }}
             resizeMode="cover"
           />
         </View>
-        <Text fontSize="2xl" bold>Carlos Loureiro</Text>
-        <Text>carlos.loureiro@email.com</Text>
+        <Text fontSize="2xl" bold>{ user.name }</Text>
+        <Text>{ user.email }</Text>
       </View>
     </View>
   );
