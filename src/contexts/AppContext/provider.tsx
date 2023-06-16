@@ -166,6 +166,8 @@ export default function AppContextProvider ({ children }: { children: ReactEleme
 
       setCurrentScreen(screens.find(screen => screen.name === `Login`) as ScreenInterface);
       return;
+    } else if (currentScreen?.requireNotUser && user && Platform.OS === `web`) {
+      setScreen(`Home`);
     }
   }, [asyncUserLoaded, user, currentScreen]);
 

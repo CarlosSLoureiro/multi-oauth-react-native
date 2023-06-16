@@ -15,6 +15,7 @@ export interface ScreenInterface {
   route: string;
   screen: ComponentType;
   requireUser?: boolean;
+  requireNotUser?: boolean;
 }
 
 export interface ExternalDataInterface {

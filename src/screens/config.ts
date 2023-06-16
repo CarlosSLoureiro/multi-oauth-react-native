@@ -16,12 +16,14 @@ export const screens: ScreenInterface[] = [
   {
     name: `Login`,
     route: `/login`,
-    screen: LoginScreen
+    screen: LoginScreen,
+    requireNotUser: true
   },
   {
     name: `Sign Up`,
     route: `/signup`,
-    screen: SignupScreen
+    screen: SignupScreen,
+    requireNotUser: true
   },
   {
     name: `Activities`,
