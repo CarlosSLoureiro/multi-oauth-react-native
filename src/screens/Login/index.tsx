@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Box, Button, Center, FormControl, Heading, HStack, Input, Link, Pressable, Text, VStack } from "native-base";
+import { Box, Button, Center, FormControl, Heading, Input, Link, Pressable, Text, VStack } from "native-base";
 
 import AppContext from "@contexts/AppContext";
 
