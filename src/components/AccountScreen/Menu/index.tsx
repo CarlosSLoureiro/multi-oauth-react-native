@@ -1,5 +1,5 @@
-import { useContext } from 'react';
-import { Box, Button, HStack, Icon, Stagger, Text, useDisclose,View } from 'native-base';
+import { useContext, useEffect } from 'react';
+import { Box, Button, HStack, Icon, Stagger, Text, useDisclose, View } from 'native-base';
 
 import AppContext from '@contexts/AppContext';
 
@@ -8,12 +8,16 @@ import { containerBoxProps } from './styles';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export default function AccountMenu () {
-  const { updateUser } = useContext(AppContext);
-  const { isOpen, onToggle } = useDisclose();
+  const { updateUser, currentScreen } = useContext(AppContext);
+  const { isOpen, onToggle, onClose } = useDisclose();
 
   const onLogout = () => {
     updateUser(undefined);
   };
+
+  useEffect(() => {
+    onClose();
+  }, [currentScreen]);
 
   return <Box {...containerBoxProps}>
     <HStack justifyContent="flex-end">
