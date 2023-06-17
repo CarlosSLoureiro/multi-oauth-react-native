@@ -1,3 +1,5 @@
+import { API_URL } from '@env';
+
 import Constants from "expo-constants";
 import * as Linking from 'expo-linking';
 import { Button, HStack, Text, useColorModeValue } from "native-base";
@@ -10,7 +12,6 @@ import QueryString from 'query-string';
 
 export default function OAuth2LoginButton ({icon, title, endpoint}: OAuth2LoginButtonProps) {
   const onPress = async () => {
-    const api = `http://api-multi-oauth2-react-native-test.carlosloureiro.xyz`;
     const params = {
       'isDevelopment': __DEV__,
       'debuggerHost': Constants.manifest?.debuggerHost,
@@ -20,7 +21,7 @@ export default function OAuth2LoginButton ({icon, title, endpoint}: OAuth2LoginB
       data: encryptExternalData(params)
     });
 
-    const url = `${api}${endpoint}?${query}`;
+    const url = `${API_URL}${endpoint}?${query}`;
 
     await Linking.openURL(url);
   };

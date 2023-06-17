@@ -1,4 +1,4 @@
-const api = `http://api-multi-oauth2-react-native-test.carlosloureiro.xyz`;
+import { API_URL } from '@env';
 
 export default async (method: string, endpoint: string, authToken?:string, data?: object) => {
   const headers: { [key: string]: string } = {
@@ -9,7 +9,7 @@ export default async (method: string, endpoint: string, authToken?:string, data?
     headers[`Authorization`] = `Bearer ${authToken}`;
   }
 
-  return await fetch(`${api}${endpoint}`, {
+  return await fetch(`${API_URL}${endpoint}`, {
     method,
     headers,
     ...(data && {
