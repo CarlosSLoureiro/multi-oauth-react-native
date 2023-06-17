@@ -1,5 +1,5 @@
 {
-  "name": "my-app-native-base",
+  "name": "multi-oauth2-react-native",
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
   "keywords": [
@@ -10,6 +10,7 @@
     "nativebase"
   ],
   "license": "MIT",
+  "author": "Carlos Loureiro",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -60,6 +61,5 @@
     "react-native-dotenv": "^3.4.8",
     "typescript": "^4.9.4"
   },
-  "author": "Carlos Loureiro",
   "private": true
 }

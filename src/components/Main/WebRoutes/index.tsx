@@ -1,5 +1,8 @@
+import { APP_NAME } from '@env';
+
 import { useContext, useEffect } from 'react';
 import { BrowserRouter, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import Constants from "expo-constants";
 
 import AppContext from '@contexts/AppContext';
 
@@ -13,7 +16,7 @@ const RoutesScreen = () => {
   const location = useLocation();
 
   useEffect(() => {
-    document.title = currentScreen.name;
+    document.title = `${currentScreen.name} — ${APP_NAME}`;
 
     if (location.pathname !== currentScreen.route) {
       navigate(currentScreen.route);
