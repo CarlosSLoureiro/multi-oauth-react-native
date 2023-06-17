@@ -44,6 +44,10 @@ export default function LoginScreen () {
     })();
   };
 
+  const onForgetPassword = () => {
+    addAlert({ status: `warning`, message: `The feature "Forget Password" is still not implemented` });
+  };
+
   const onPressSignUp = () => {
     setScreen(`Sign Up`);
   };
@@ -86,13 +90,11 @@ export default function LoginScreen () {
                 <Input type="password" isRequired isDisabled={isLoggingIn} isInvalid={feildWithErrors.includes(`password`)}  onChangeText={value => setFormData({ ...formData,
                   password: value
                 })} value={formData.password || ``}  />
-                <Link _text={{
-                  fontSize: `xs`,
-                  fontWeight: `500`,
-                  color: `indigo.500`
-                }} alignSelf="flex-end" mt="1">
-                  Forget Password?
-                </Link>
+                <Pressable onPress={onForgetPassword}>
+                  <Text fontSize="xs" fontWeight="500" color="indigo.500" alignSelf="flex-end" mt="1">
+                    Forget Password?
+                  </Text>
+                </Pressable>
               </FormControl>
               <Button
                 mt="2"
