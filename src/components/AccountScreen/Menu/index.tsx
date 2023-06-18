@@ -9,13 +9,16 @@ import { containerBoxProps, menuButtons, settingsButton } from './styles';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export default function AccountMenu () {
-  const { updateUser, currentScreen } = useContext(AppContext);
+  const { setScreen, updateUser, currentScreen } = useContext(AppContext);
   const { isOpen, onToggle, onClose } = useDisclose();
 
   const menuItems: MenuItems[] = [
     {
       title: `Change Password`,
-      icon: <MaterialCommunityIcons name='lock-check' />
+      icon: <MaterialCommunityIcons name='lock-check' />,
+      onPress: () => {
+        setScreen(`Change Password`);
+      }
     },
     {
       title: `Logout`,
