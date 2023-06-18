@@ -5,6 +5,7 @@ import GenericActivitiesScreen from "@screens/GenericActivitiesScreen";
 import HomeScreen from "@screens/Home";
 import LoginScreen from "@screens/Login";
 
+import ChangePasswordScreen from "./ChangePassword";
 import SignupScreen from "./Signup";
 
 export const screens: ScreenInterface[] = [
@@ -36,5 +37,10 @@ export const screens: ScreenInterface[] = [
     screen: AccountScreen,
     requireUser: true
   },
-
+  {
+    name: `Change Password`,
+    route: `/account/change-password`,
+    screen: ChangePasswordScreen,
+    requireUser: true
+  }
 ];
