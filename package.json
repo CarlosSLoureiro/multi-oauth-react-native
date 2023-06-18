@@ -12,7 +12,7 @@
   "license": "MIT",
   "author": "Carlos Loureiro",
   "scripts": {
-    "start": "expo start",
+    "start": "expo start --clear",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
