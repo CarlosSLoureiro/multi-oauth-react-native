@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Box, Button, Center, FormControl, Heading, Input, Link, Pressable, Text, VStack } from "native-base";
 
 import AppContext from "@contexts/AppContext";
@@ -12,7 +12,7 @@ import LoginRequest from "@remote/Login";
 import { RequestLoginData } from "@remote/Login/types";
 
 export default function LoginScreen () {
-  const { setScreen, addAlert, updateUser } = useContext(AppContext);
+  const { setScreen, currentScreen, addAlert, updateUser } = useContext(AppContext);
 
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [feildWithErrors, setFieldsWithErrors] = useState<string[]>([]);
@@ -43,6 +43,10 @@ export default function LoginScreen () {
       }
     })();
   };
+
+  useEffect(() => {
+    setFormData({} as RequestLoginData);
+  }, [currentScreen]);
 
   const onForgetPassword = () => {
     addAlert({ status: `warning`, message: `The feature "Forget Password" is still not implemented` });
