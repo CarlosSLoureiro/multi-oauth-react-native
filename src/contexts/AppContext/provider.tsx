@@ -131,7 +131,7 @@ export default function AppContextProvider ({ children }: { children: ReactEleme
 
       setUserTokenVerified(true);
     } catch (error: any) {
-      addAlert({ status: `error`, message: error.message });
+      addAlert({ status: `error`, message: `There was an error trying to sync your user data. Please check your internet connection and try again in a few minutes.` }, 20000);
     }
   };
 
