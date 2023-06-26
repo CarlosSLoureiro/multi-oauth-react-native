@@ -19,7 +19,7 @@ export default function ChangePasswordScreen () {
     setScreen(`Account`);
   };
 
-  const onPressRegister = () => {
+  const onPressSubmit = () => {
     void (async () => {
       try {
         if (!user) return;
@@ -102,7 +102,7 @@ export default function ChangePasswordScreen () {
                 spinnerPlacement="end"
                 isLoadingText="Validating"
                 isLoading={isRequesting}
-                onPress={onPressRegister}
+                onPress={onPressSubmit}
               >
                 Submit
               </Button>

@@ -26,6 +26,7 @@
     "@react-navigation/bottom-tabs": "^6.5.7",
     "@react-navigation/native": "^6.1.6",
     "@types/crypto-js": "^4.1.1",
+    "date-fns": "^2.30.0",
     "expo": "^48.0.0",
     "expo-constants": "^14.2.1",
     "expo-linking": "^4.0.1",

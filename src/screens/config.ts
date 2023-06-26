@@ -1,7 +1,7 @@
 import { ScreenInterface } from "@contexts/AppContext/types";
 
 import AccountScreen from "@screens/Account";
-import GenericActivitiesScreen from "@screens/GenericActivitiesScreen";
+import ActivitiesScreen from "@screens/Activities";
 import HomeScreen from "@screens/Home";
 import LoginScreen from "@screens/Login";
 
@@ -29,7 +29,7 @@ export const screens: ScreenInterface[] = [
   {
     name: `Activities`,
     route: `/activities`,
-    screen: GenericActivitiesScreen
+    screen: ActivitiesScreen
   },
   {
     name: `Account`,

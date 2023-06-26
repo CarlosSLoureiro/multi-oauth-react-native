@@ -1,13 +1,7 @@
+import { ResponseActivityModel } from "@remote/ListActivities/types";
+
 export interface ActivityCardProps {
-  activity?: {
-    id: number;
-    message: string;
-    date: Date;
-    user: {
-      name: string;
-      picture: string;
-    };
-  };
+  activity: ResponseActivityModel;
 }
 
 export interface ActivityCardSkeletonProps {
