@@ -20,7 +20,7 @@ export default function OAuth2LoginButton ({icon, title, endpoint}: OAuth2LoginB
   const onPress = async () => {
     const params = {
       'isDevelopment': __DEV__,
-      'debuggerHost': Constants.manifest?.debuggerHost,
+      'debuggerHost': Platform.OS === `web` ? window.location.origin : Constants.manifest?.debuggerHost,
       'webScreenRoute': Platform.OS === `web` ? currentScreen.route : undefined
     };
 
