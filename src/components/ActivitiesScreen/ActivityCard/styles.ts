@@ -70,7 +70,7 @@ export const skeletonStyles: {
   cardStack: cardStyles.cardStack,
   picture: {
     flex: `1`,
-    h: `100%`,
+    h: `100`,
     alignSelf: `center`,
     rounded: `xl`,
     _dark: {
