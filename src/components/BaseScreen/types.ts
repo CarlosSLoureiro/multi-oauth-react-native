@@ -4,5 +4,6 @@ import { StyleProp, ViewStyle } from "react-native";
 export interface BaseScreenProps {
   style?: StyleProp<ViewStyle>;
   enableScroll?: boolean;
+  onScrollToEnd?: () => void;
   children: ReactElement | ReactElement[];
 }
