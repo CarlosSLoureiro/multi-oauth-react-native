@@ -29,7 +29,8 @@ export const screens: ScreenInterface[] = [
   {
     name: `Activities`,
     route: `/activities`,
-    screen: ActivitiesScreen
+    screen: ActivitiesScreen,
+    requireUser: true
   },
   {
     name: `Account`,
