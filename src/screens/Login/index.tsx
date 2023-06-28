@@ -4,9 +4,9 @@ import { Box, Button, Center, FormControl, Heading, HStack, Input, Link, Pressab
 import AppContext from "@contexts/AppContext";
 
 import BaseScreen from "@components/BaseScreen";
-import FacebookIcon from "@components/HomeScreen/Icons/FacebookIcon";
-import GoogleIcon from "@components/HomeScreen/Icons/GoogleIcon";
-import TwitterIcon from "@components/HomeScreen/Icons/TwitterIcon";
+import FacebookIcon from "@components/Icons/FacebookIcon";
+import GoogleIcon from "@components/Icons/GoogleIcon";
+import TwitterIcon from "@components/Icons/TwitterIcon";
 import OAuth2LoginButton from "@components/LoginScreen/OAuth2LoginButton";
 
 import LoginRequest from "@remote/Login";

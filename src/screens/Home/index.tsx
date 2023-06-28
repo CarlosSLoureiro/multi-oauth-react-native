@@ -8,16 +8,16 @@ import BaseScreen from '@components/BaseScreen';
 import Card from '@components/HomeScreen/Card';
 import DarkModeSwitch from "@components/HomeScreen/DarkModeSwitch";
 import Header from '@components/HomeScreen/Header';
-import AndroidIcon from '@components/HomeScreen/Icons/AndroidIcon';
-import APIIcon from '@components/HomeScreen/Icons/APIIcon';
-import AppleIcon from '@components/HomeScreen/Icons/AppleIcon';
-import ExpoIcon from '@components/HomeScreen/Icons/ExpoIcon';
-import FacebookIcon from '@components/HomeScreen/Icons/FacebookIcon';
-import GoogleIcon from '@components/HomeScreen/Icons/GoogleIcon';
-import NativeBaseIcon from '@components/HomeScreen/Icons/NativeBaseIcon';
-import ReactIcon from '@components/HomeScreen/Icons/ReactIcon';
-import TSIcon from '@components/HomeScreen/Icons/TSIcon';
-import WebIcon from '@components/HomeScreen/Icons/WebIcon';
+import AndroidIcon from '@components/Icons/AndroidIcon';
+import APIIcon from '@components/Icons/APIIcon';
+import AppleIcon from '@components/Icons/AppleIcon';
+import ExpoIcon from '@components/Icons/ExpoIcon';
+import FacebookIcon from '@components/Icons/FacebookIcon';
+import GoogleIcon from '@components/Icons/GoogleIcon';
+import NativeBaseIcon from '@components/Icons/NativeBaseIcon';
+import ReactIcon from '@components/Icons/ReactIcon';
+import TSIcon from '@components/Icons/TSIcon';
+import WebIcon from '@components/Icons/WebIcon';
 
 export default function HomeScreen() {
   const defaultFirstMessage = `Hey there!`;
