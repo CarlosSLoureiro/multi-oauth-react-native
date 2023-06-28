@@ -10,7 +10,7 @@ import ListActivitiesRequest from "@remote/ListActivities";
 import { ResponseActivityModel } from "@remote/ListActivities/types";
 
 export default function ActivitiesScreen() {
-  const { user, addAlert, currentScreen } = useContext(AppContext);
+  const { addAlert, currentScreen } = useContext(AppContext);
   const [ isLoading, setIsLoading ] = useState(true);
   const [ page, setPage ] = useState<number>();
   const [ list, setList ] = useState<Array<ResponseActivityModel>>([]);
@@ -18,11 +18,9 @@ export default function ActivitiesScreen() {
 
   const loadActivitiesPage = async (remotePage: number) => {
     try {
-      if (!user) return;
-
       setIsLoading(true);
 
-      const response = await ListActivitiesRequest(user.token, remotePage);
+      const response = await ListActivitiesRequest(remotePage);
 
       if (!response.error) {
         if(response.length > 0) {
