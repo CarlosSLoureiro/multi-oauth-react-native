@@ -17,7 +17,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "test": "tsc --noEmit && eslint --ignore-path .gitignore . --fix --quiet"
+    "test": "tsc --noEmit && eslint --ignore-path .gitignore . --fix --quiet",
+    "build": "expo export:web"
   },
   "dependencies": {
     "@expo/vector-icons": "^13.0.0",
