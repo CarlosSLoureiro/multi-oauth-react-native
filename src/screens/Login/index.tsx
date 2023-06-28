@@ -1,11 +1,12 @@
 import { useContext, useEffect, useState } from "react";
-import { Box, Button, Center, FormControl, Heading, Input, Link, Pressable, Text, VStack } from "native-base";
+import { Box, Button, Center, FormControl, Heading, HStack, Input, Link, Pressable, Text, VStack } from "native-base";
 
 import AppContext from "@contexts/AppContext";
 
 import BaseScreen from "@components/BaseScreen";
 import FacebookIcon from "@components/HomeScreen/Icons/FacebookIcon";
 import GoogleIcon from "@components/HomeScreen/Icons/GoogleIcon";
+import TwitterIcon from "@components/HomeScreen/Icons/TwitterIcon";
 import OAuth2LoginButton from "@components/LoginScreen/OAuth2LoginButton";
 
 import LoginRequest from "@remote/Login";
@@ -64,18 +65,22 @@ export default function LoginScreen () {
             <Heading size="lg" mb={5} fontWeight="600" color="coolGray.800" _dark={{
               color: `warmGray.50`
             }}>
-              Sign in
+              Continue with
             </Heading>
-            <OAuth2LoginButton
-              icon={<GoogleIcon size="20px"/>}
-              endpoint="/auth/google"
-              title="Continue with Google"
-            />
-            <OAuth2LoginButton
-              icon={<FacebookIcon size="22px"/>}
-              endpoint="/auth/facebook"
-              title="Continue with Facebook"
-            />
+            <HStack space="3" justifyContent="center">
+              <OAuth2LoginButton
+                icon={<GoogleIcon size="25px"/>}
+                endpoint="/auth/google"
+              />
+              <OAuth2LoginButton
+                icon={<FacebookIcon size="28px"/>}
+                endpoint="/auth/facebook"
+              />
+              <OAuth2LoginButton
+                icon={<TwitterIcon size="32px"/>}
+                endpoint="/auth/twitter"
+              />
+            </HStack>
             <Heading mt="10" _dark={{
               color: `warmGray.200`
             }} color="coolGray.600" fontWeight="medium" size="xs">
