@@ -69,16 +69,16 @@ export default function LoginScreen () {
             </Heading>
             <HStack space="3" justifyContent="center">
               <OAuthLoginButton
+                provider="Google"
                 icon={<GoogleIcon size="25px"/>}
-                endpoint="/auth/google"
               />
               <OAuthLoginButton
+                provider="Facebook"
                 icon={<FacebookIcon size="28px"/>}
-                endpoint="/auth/facebook"
               />
               <OAuthLoginButton
+                provider="Twitter"
                 icon={<TwitterIcon size="32px"/>}
-                endpoint="/auth/twitter"
               />
             </HStack>
             <Heading mt="10" _dark={{

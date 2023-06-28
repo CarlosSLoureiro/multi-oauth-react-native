@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import { Platform } from 'react-native';
 import Constants from "expo-constants";
 import * as Linking from 'expo-linking';
-import { Button, useColorModeValue } from "native-base";
+import { Button, Pressable, Tooltip, useColorModeValue } from "native-base";
 
 import AppContext from '@contexts/AppContext';
 
@@ -14,7 +14,7 @@ import { OAuthLoginButtonProps } from "./types";
 
 import QueryString from 'query-string';
 
-export default function OAuthLoginButton ({icon, endpoint}: OAuthLoginButtonProps) {
+export default function OAuthLoginButton ({provider, icon}: OAuthLoginButtonProps) {
   const { currentScreen } = useContext(AppContext);
 
   const onPress = async () => {
@@ -28,25 +28,27 @@ export default function OAuthLoginButton ({icon, endpoint}: OAuthLoginButtonProp
       data: encryptExternalData(params)
     });
 
-    const url = `${API_URL}${endpoint}?${query}`;
+    const url = `${API_URL}/auth/${provider.toLowerCase()}?${query}`;
 
     await Linking.openURL(url);
   };
 
   return (
-    <Button
-      mt="2"
-      py="2"
-      _web={{
-        py:`1`
-      }}
-      width="20"
-      backgroundColor="transparent"
-      borderColor={useColorModeValue(`Light`, `Dark`) === `Light` ? `#000000` : `#797979`}
-      borderWidth={1}
-      onPress={onPress}
-    >
-      { icon }
-    </Button>
+    <Tooltip label={`Continue with ${provider}`}>
+      <Button
+        mt="2"
+        py="2"
+        _web={{
+          py:`1`
+        }}
+        width="20"
+        backgroundColor="transparent"
+        borderColor={useColorModeValue(`Light`, `Dark`) === `Light` ? `#000000` : `#797979`}
+        borderWidth={1}
+        onPress={onPress}
+      >
+        { icon }
+      </Button>
+    </Tooltip>
   );
 }
