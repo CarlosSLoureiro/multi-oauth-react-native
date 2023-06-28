@@ -54,11 +54,13 @@ export default function ActivitiesScreen() {
   }, [page]);
 
   useEffect(() => {
-    if (currentScreen.name === `Activities`) {
-      setPage(0);
-    } else {
-      setPage(undefined);
-      setList([]);
+    if (currentScreen) {
+      if (currentScreen.name === `Activities`) {
+        setPage(0);
+      } else {
+        setPage(undefined);
+        setList([]);
+      }
     }
   }, [currentScreen]);
 

@@ -16,10 +16,12 @@ const RoutesScreen = () => {
   const location = useLocation();
 
   useEffect(() => {
-    document.title = `${currentScreen.name} — ${APP_NAME}`;
+    if (currentScreen) {
+      document.title = `${currentScreen.name} — ${APP_NAME}`;
 
-    if (location.pathname !== currentScreen.route) {
-      navigate(currentScreen.route);
+      if (location.pathname !== currentScreen.route) {
+        navigate(currentScreen.route);
+      }
     }
   }, [currentScreen]);
 

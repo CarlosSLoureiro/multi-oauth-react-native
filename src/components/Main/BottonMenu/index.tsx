@@ -54,9 +54,11 @@ export default function BottonMenu() {
   ];
 
   useEffect(() => {
-    const isScreenInMenu = items.findIndex((item) => item.name === currentScreen.name) !== -1;
-    if (isScreenInMenu) {
-      setSelected(currentScreen.name);
+    if (currentScreen) {
+      const isScreenInMenu = items.findIndex((item) => item.name === currentScreen.name) !== -1;
+      if (isScreenInMenu) {
+        setSelected(currentScreen.name);
+      }
     }
   }, [currentScreen]);
 

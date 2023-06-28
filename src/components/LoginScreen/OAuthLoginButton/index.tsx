@@ -21,7 +21,7 @@ export default function OAuthLoginButton ({provider, icon}: OAuthLoginButtonProp
     const params = {
       'isDevelopment': __DEV__,
       'debuggerHost': Platform.OS === `web` ? window.location.origin : Constants.manifest?.debuggerHost,
-      'webScreenRoute': Platform.OS === `web` ? currentScreen.route : undefined
+      'webScreenRoute': Platform.OS === `web` && currentScreen ? currentScreen.route : undefined
     };
 
     const query = QueryString.stringify({

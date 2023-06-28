@@ -2,6 +2,8 @@ import { ReactElement, useEffect, useState } from 'react';
 import { Platform } from 'react-native';
 import * as Linking from 'expo-linking';
 
+import AppContext from '@contexts/AppContext';
+
 import Alert from '@components/Main/Alert';
 import { AlertProps } from '@components/Main/Alert/types';
 import { screens } from '@screens/config';
@@ -10,8 +12,6 @@ import decryptExternalData from '@utils/data-manager/decrypt';
 import encryptExternalData from '@utils/data-manager/encrypt';
 
 import AuthCheckRequest from '@remote/AuthCheck';
-
-import AppContext from '.';
 
 import { ExternalDataInterface, ScreenInterface, UserInterface } from './types';
 
