@@ -32,10 +32,10 @@ export default function BottonMenu() {
       }
     },
     {
-      name: `Developer`,
+      name: `Repository`,
       icon: <MaterialCommunityIcons name='github' />,
       action: () => {
-        const url = `https://github.com/CarlosSLoureiro`;
+        const url = `https://github.com/CarlosSLoureiro/multi-oauth-react-native`;
         if (Platform.OS === `web`) {
           window.open(url, `_blank`);
         } else {
