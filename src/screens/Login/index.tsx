@@ -7,7 +7,7 @@ import BaseScreen from "@components/BaseScreen";
 import FacebookIcon from "@components/Icons/FacebookIcon";
 import GoogleIcon from "@components/Icons/GoogleIcon";
 import TwitterIcon from "@components/Icons/TwitterIcon";
-import OAuth2LoginButton from "@components/LoginScreen/OAuth2LoginButton";
+import OAuthLoginButton from "@components/LoginScreen/OAuthLoginButton";
 
 import LoginRequest from "@remote/Login";
 import { RequestLoginData } from "@remote/Login/types";
@@ -68,15 +68,15 @@ export default function LoginScreen () {
               Continue with
             </Heading>
             <HStack space="3" justifyContent="center">
-              <OAuth2LoginButton
+              <OAuthLoginButton
                 icon={<GoogleIcon size="25px"/>}
                 endpoint="/auth/google"
               />
-              <OAuth2LoginButton
+              <OAuthLoginButton
                 icon={<FacebookIcon size="28px"/>}
                 endpoint="/auth/facebook"
               />
-              <OAuth2LoginButton
+              <OAuthLoginButton
                 icon={<TwitterIcon size="32px"/>}
                 endpoint="/auth/twitter"
               />

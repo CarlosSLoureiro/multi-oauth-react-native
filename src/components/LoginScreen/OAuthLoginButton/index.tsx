@@ -10,11 +10,11 @@ import AppContext from '@contexts/AppContext';
 
 import encryptExternalData from "@utils/data-manager/encrypt";
 
-import { OAuth2LoginButtonProps } from "./types";
+import { OAuthLoginButtonProps } from "./types";
 
 import QueryString from 'query-string';
 
-export default function OAuth2LoginButton ({icon, endpoint}: OAuth2LoginButtonProps) {
+export default function OAuthLoginButton ({icon, endpoint}: OAuthLoginButtonProps) {
   const { currentScreen } = useContext(AppContext);
 
   const onPress = async () => {

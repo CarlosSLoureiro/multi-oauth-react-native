@@ -42,7 +42,7 @@ export default function HomeScreen() {
         <Header>
           <Heading size="lg">{firstMessage}</Heading>
           <Heading size="xs" style={{ paddingBottom: 10 }}>
-            Welcome to Multi OAuth2 Example App
+            Welcome to Multi OAuth Example App
           </Heading>
           <Text>
             Note that it has created with <Text bold>React Native</Text>! <Tooltip label="React Native"><Link _web={{position:`absolute`}} href="https://reactnative.dev/" isExternal><ReactIcon size="20px" color='#003cff'/></Link></Tooltip>
@@ -84,7 +84,7 @@ export default function HomeScreen() {
                 </Link>
               </Tooltip>
               <Tooltip label="Web">
-                <Link href={Platform.OS === `web` ? `#` : `https://multi-oauth2-react-native.carlosloureiro.xyz`}><WebIcon size='25px' /></Link>
+                <Link href={Platform.OS === `web` ? `#` : `https://multi-oauth-react-native.carlosloureiro.xyz`}><WebIcon size='25px' /></Link>
               </Tooltip>
             </HStack>
           </Card>
@@ -98,7 +98,7 @@ export default function HomeScreen() {
             <Text paddingTop={2} paddingX={2} textAlign="center">It is managed by a <Text bold>External API</Text> also in <Text bold>TypeScript</Text></Text>
             <HStack space={2} flex={1} flexDirection="row" alignItems="center">
               <Tooltip label="API Repository">
-                <Link href="https://github.com/CarlosSLoureiro/multi-oauth2-react-native-api" isExternal>
+                <Link href="https://github.com/CarlosSLoureiro/multi-oauth-react-native-api" isExternal>
                   <APIIcon size='25px' />
                 </Link>
               </Tooltip>

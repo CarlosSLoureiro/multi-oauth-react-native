@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
 
-export interface OAuth2LoginButtonProps {
+export interface OAuthLoginButtonProps {
   icon: ReactElement;
   endpoint: string;
 }
