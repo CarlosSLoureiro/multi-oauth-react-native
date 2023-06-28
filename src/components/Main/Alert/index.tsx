@@ -56,9 +56,9 @@ export default function Alert(props: AlertProps) {
         { /* @ts-ignore */ }
         <NativeBaseAlert _web={{cursor: `grab`}} justifyContent="center" status={status} {...panResponder.panHandlers} bottom={`${alertBottom}px`} pt={`${alertPaddingTop}px`} >
           { /* @ts-ignore */ }
-          <Text _web={{ userSelect: `none` }} color={`${status}.600`} m={2} fontWeight="medium">{ message }</Text>
+          <Text _web={{ userSelect: `none` }} color={`${status}.700`} m={2} fontWeight="medium">{ message }</Text>
           { /* @ts-ignore */ }
-          <Text _web={{ userSelect: `none` }} disabled color={`${status}.300`} mt={2} fontSize={10} fontWeight="medium">Drag to Dimiss</Text>
+          <Text _web={{ userSelect: `none` }} disabled color={`${status}.500`} mt={2} fontSize={10} fontWeight="medium">Drag to Dimiss</Text>
         </NativeBaseAlert>
       </Slide>
     </Center>
