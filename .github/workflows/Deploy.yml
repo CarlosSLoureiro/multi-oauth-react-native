@@ -1,0 +1,106 @@
+name: Deploy
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  test:
+    name: Test Application
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js 19
+        uses: actions/setup-node@v3
+        with:
+          node-version: 19
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Tests
+        run: npm test
+
+  deploy:
+    name: Deploy Application
+    needs: test
+
+    runs-on: ubuntu-latest
+
+    env:
+      NAME: Multi OAuth Example App
+      DIR: /var/carlos-loureiro/apps/multi-oauth-react-native
+      IMAGE_NAME: multi-oauth-react-native
+      API_DOMAIN: https://api-multi-oauth-react-native.carlosloureiro.xyz
+      OUTPUT: /var/carlos-loureiro/web/multi-oauth-react-native
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Get latest tag
+        id: latest_tag
+        run: echo "TAG=$(git describe --tags $(git rev-list --tags --max-count=1))" >> $GITHUB_OUTPUT
+
+      - name: Pull lastest Release
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.SSH_SERVER }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          script: |
+            cd ${{ env.DIR }}
+            git fetch --tags && git checkout $(git describe --tags $(git rev-list --tags --max-count=1))
+
+      - name: Set-up Environment Variables
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.SSH_SERVER }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          script: |
+            cd ${{ env.DIR }}
+            
+            if [ -f .env ]; then
+              rm .env
+            fi
+
+            touch .env
+
+            echo APP_NAME=${{ env.NAME }} >> .env
+
+            echo API_DOMAIN=${{ env.API_DOMAIN }} >> .env
+            echo APP_SALT=${{ secrets.APP_SALT }} >> .env
+
+      - name: Build Application Image
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.SSH_SERVER }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          script: |
+            cd ${{ env.DIR }}
+            docker build -t ${{ env.IMAGE_NAME }}:${{ steps.latest_tag.outputs.TAG }} .
+
+      - name: Build static files for Web
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.SSH_SERVER }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          script: |
+            docker run --name ${{ env.IMAGE_NAME }} ${{ env.IMAGE_NAME }}:${{ steps.latest_tag.outputs.TAG }}
+            docker cp $(docker inspect -f '{{.Id}}' ${{ env.IMAGE_NAME }}):/app/web-build ${{ env.OUTPUT }}
+            
+      - name: Clear Exited Containers & Unused Images
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.SSH_SERVER }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          script: |
+            docker rm $(docker inspect -f '{{.Id}}' ${{ env.IMAGE_NAME }})
+            docker image prune --all --force
