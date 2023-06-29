@@ -1,4 +1,4 @@
-import { API_URL } from '@env';
+import { API_DOMAIN } from '@env';
 
 import { useContext } from 'react';
 import { Platform } from 'react-native';
@@ -28,7 +28,7 @@ export default function OAuthLoginButton ({provider, icon}: OAuthLoginButtonProp
       data: encryptExternalData(params)
     });
 
-    const url = `${API_URL}/auth/${provider.toLowerCase()}?${query}`;
+    const url = `${API_DOMAIN}/auth/${provider.toLowerCase()}?${query}`;
 
     await Linking.openURL(url);
   };

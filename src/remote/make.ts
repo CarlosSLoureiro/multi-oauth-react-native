@@ -1,4 +1,4 @@
-import { API_URL } from '@env';
+import { API_DOMAIN } from '@env';
 
 export default async (method: string, endpoint: string, authToken?:string, data?: object) => {
   const headers: { [key: string]: string } = {
@@ -9,7 +9,7 @@ export default async (method: string, endpoint: string, authToken?:string, data?
     headers[`Authorization`] = `Bearer ${authToken}`;
   }
 
-  return await fetch(`${API_URL}${endpoint}`, {
+  return await fetch(`${API_DOMAIN}${endpoint}`, {
     method,
     headers,
     ...(data && {
