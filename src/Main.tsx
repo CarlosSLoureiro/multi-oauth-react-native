@@ -23,11 +23,7 @@ declare module "native-base" {
 
 export default function App() {
   const { setColorMode } = useColorMode();
-  const { addAlert, user, updateUser, externalData } = useContext(AppContext);
-
-  useEffect(() => {
-    console.log(`User ->`, user);
-  }, [user]);
+  const { addAlert, updateUser, externalData } = useContext(AppContext);
 
   useEffect(() => {
     if (externalData.error) {
