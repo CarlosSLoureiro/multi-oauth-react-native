@@ -34,6 +34,10 @@ export default function BaseScreen({ style = {}, enableScroll = false, onScrollT
         return onUnfocus;
       }, [])
     );
+  } else if (onFocus) {
+    useEffect(() => {
+      onFocus();
+    }, []);
   }
 
   useEffect(() => {
