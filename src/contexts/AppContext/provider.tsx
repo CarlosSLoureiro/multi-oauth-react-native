@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useState } from 'react';
+import { ReactElement, useEffect, useMemo, useRef, useState } from 'react';
 import { Platform } from 'react-native';
 import * as Linking from 'expo-linking';
 
@@ -13,7 +13,7 @@ import encryptExternalData from '@utils/data-manager/encrypt';
 
 import AuthCheckRequest from '@remote/AuthCheck';
 
-import { ExternalDataInterface, ScreenInterface, UserInterface } from './types';
+import { AppNavigation, ExternalDataInterface, ScreenInterface, UserInterface } from './types';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import QueryString from 'query-string';
@@ -28,14 +28,15 @@ export default function AppContextProvider ({ children }: { children: ReactEleme
   const [alert, setAlert] = useState<Omit<AlertProps, "setAlert"> | undefined>(undefined);
   const [alertTimeout, setAlertTimeout] = useState<NodeJS.Timeout | null>(null);
 
-  const [currentScreen, setCurrentScreen] = useState<ScreenInterface>((): ScreenInterface => {
-    if (Platform.OS !== `web`) {
-      return screens.find(screen => screen.name === `Home`) as ScreenInterface;
-    } else {
-      const url = new URL(window.location.href);
-      return screens.find(screen => screen.route === url.pathname) as ScreenInterface;
-    }
-  });
+  const appNavigation = useRef<AppNavigation>();
+
+  let initalScreen = screens.find(screen => screen.name === `Home`) as ScreenInterface;
+  if (Platform.OS === `web`) {
+    const url = new URL(window.location.href);
+    initalScreen = screens.find(screen => screen.route === url.pathname) as ScreenInterface;
+  }
+
+  const activeScreen = useRef<ScreenInterface>(initalScreen);
 
   const updateUser = (userData?: Partial<UserInterface>) => {
     if (userData) {
@@ -59,15 +60,16 @@ export default function AppContextProvider ({ children }: { children: ReactEleme
     for (const screen of screens) {
       if (screen.name === name) {
         if (screen?.requireUser && !user) {
-          void (async () => {
-            await AsyncStorage.setItem(`APP_RETURN_SCREEN`, screen.name);
-          })();
-
-          setCurrentScreen(screens.find(screen => screen.name === `Login`) as ScreenInterface);
+          void AsyncStorage.setItem(`APP_RETURN_SCREEN`, screen.name);
+          setScreen(`Login`);
+          return;
+        } else {
+          if (appNavigation.current) {
+            appNavigation.current(screen);
+            activeScreen.current = screen;
+          }
           return;
         }
-        setCurrentScreen(screen);
-        return;
       }
     }
 
@@ -159,17 +161,16 @@ export default function AppContextProvider ({ children }: { children: ReactEleme
       return;
     }
 
-    if (currentScreen?.requireUser && !user) {
+    if (activeScreen.current?.requireUser && !user) {
       void (async () => {
-        await AsyncStorage.setItem(`APP_RETURN_SCREEN`, currentScreen.name);
+        await AsyncStorage.setItem(`APP_RETURN_SCREEN`, activeScreen.current.name);
       })();
 
-      setCurrentScreen(screens.find(screen => screen.name === `Login`) as ScreenInterface);
-      return;
-    } else if (currentScreen?.requireNotUser && user && Platform.OS === `web`) {
+      setScreen(`Login`);
+    } else if (!activeScreen.current || activeScreen.current?.requireNotUser && user) {
       setScreen(`Home`);
     }
-  }, [asyncUserLoaded, user, currentScreen]);
+  }, [asyncUserLoaded, user, activeScreen.current]);
 
   useEffect(() => {
     if (user) {
@@ -207,13 +208,18 @@ export default function AppContextProvider ({ children }: { children: ReactEleme
     }
   }, []);
 
+  const memoizedValue = useMemo(() => ({
+    externalData,
+    user,
+    updateUser,
+    setScreen,
+    addAlert,
+    appNavigation,
+    activeScreen
+  }), [externalData, user, updateUser, setScreen, addAlert, appNavigation, activeScreen]);
+
   return (
-    <AppContext.Provider value={{
-      externalData,
-      user, updateUser,
-      currentScreen, setScreen,
-      addAlert
-    }}>
+    <AppContext.Provider value={memoizedValue}>
       {alert && <Alert {...alert} setAlert={setAlert} />}
       {children}
     </AppContext.Provider>

@@ -13,7 +13,7 @@ import LoginRequest from "@remote/Login";
 import { RequestLoginData } from "@remote/Login/types";
 
 export default function LoginScreen () {
-  const { setScreen, currentScreen, addAlert, updateUser } = useContext(AppContext);
+  const { setScreen, addAlert, updateUser } = useContext(AppContext);
 
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [feildWithErrors, setFieldsWithErrors] = useState<string[]>([]);
@@ -45,10 +45,6 @@ export default function LoginScreen () {
     })();
   };
 
-  useEffect(() => {
-    setFormData({} as RequestLoginData);
-  }, [currentScreen]);
-
   const onForgetPassword = () => {
     addAlert({ status: `warning`, message: `The feature "Forget Password" is still not implemented` });
   };
@@ -58,7 +54,7 @@ export default function LoginScreen () {
   };
 
   return (
-    <BaseScreen>
+    <BaseScreen onUnfocus={() => { setFormData({} as RequestLoginData); }}>
       <Center flex={1} px="3">
         <Center w="100%">
           <Box safeArea p="2" py="8" w="90%" maxW="290">

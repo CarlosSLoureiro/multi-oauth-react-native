@@ -9,7 +9,7 @@ import SignupRequest from "@remote/Signup";
 import { RequestSignupData } from "@remote/Signup/types";
 
 export default function SignupScreen () {
-  const { setScreen, currentScreen, updateUser, addAlert } = useContext(AppContext);
+  const { setScreen, updateUser, addAlert } = useContext(AppContext);
 
   const [isRegistering, setIsRegistering] = useState(false);
   const [feildWithErrors, setFieldsWithErrors] = useState<string[]>([]);
@@ -63,12 +63,8 @@ export default function SignupScreen () {
     setFieldsWithErrors([]);
   }, [formData]);
 
-  useEffect(() => {
-    setFormData({} as RequestSignupData);
-  }, [currentScreen]);
-
   return (
-    <BaseScreen>
+    <BaseScreen onUnfocus={() => { setFormData({} as RequestSignupData); }}>
       <Center flex={1} px="3">
         <Center w="100%">
           <Box safeArea p="2" py="8" w="90%" maxW="290">

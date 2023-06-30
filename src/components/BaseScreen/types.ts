@@ -5,5 +5,7 @@ export interface BaseScreenProps {
   style?: StyleProp<ViewStyle>;
   enableScroll?: boolean;
   onScrollToEnd?: () => void;
+  onFocus?: () => void;
+  onUnfocus?: () => void;
   children: ReactElement | ReactElement[];
 }

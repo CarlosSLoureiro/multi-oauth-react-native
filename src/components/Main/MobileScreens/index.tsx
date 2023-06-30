@@ -3,19 +3,24 @@ import { Keyboard, Platform, StatusBar, StatusBarProps } from 'react-native';
 import { useColorModeValue } from 'native-base';
 
 import AppContext from '@contexts/AppContext';
+import { ScreenInterface } from '@contexts/AppContext/types';
 
 import { screens } from '@screens/config';
 
 import BottonMenu from '../BottonMenu';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createNavigationContainerRef } from '@react-navigation/native';
-import { NavigationContainer } from '@react-navigation/native';
+import { createNavigationContainerRef, NavigationContainer } from '@react-navigation/native';
 
 export default function MobileScreens () {
-  const Tab = createBottomTabNavigator();
-  const navigationRef = createNavigationContainerRef();
-  const { currentScreen } = useContext(AppContext);
+  const { appNavigation } = useContext(AppContext);
+
+  const navigation = createNavigationContainerRef();
+
+  appNavigation.current = (screen: ScreenInterface): void => {
+    navigation.navigate(screen.name as never);
+  };
+
   const [keyboardVisible, setKeyboardVisible] = useState(false);
 
   useEffect(() => {
@@ -38,12 +43,6 @@ export default function MobileScreens () {
     };
   }, []);
 
-  useEffect(() => {
-    if (currentScreen !== undefined) {
-      navigationRef.navigate(currentScreen.name as never);
-    }
-  }, [currentScreen]);
-
   const statusBarProps:StatusBarProps = useColorModeValue(`Light`, `Dark`) === `Light` ? {
     backgroundColor: `#ffffff`,
     barStyle: `dark-content`
@@ -52,15 +51,18 @@ export default function MobileScreens () {
     barStyle: `light-content`
   };
 
+  const Tab = createBottomTabNavigator();
+  const tabBar = keyboardVisible ? <></> : <BottonMenu />;
+
   return (
-    <NavigationContainer ref={navigationRef}>
+    <NavigationContainer ref={navigation}>
       <StatusBar {...statusBarProps} />
       <Tab.Navigator
         screenOptions={{
           headerShown: false,
           headerTitleAlign: `center`,
         }}
-        tabBar={props => keyboardVisible ? <></> : <BottonMenu />}
+        tabBar={() => tabBar}
       >
         {screens.map((screen) => (
           <Tab.Screen key={screen.name} name={screen.name} component={screen.screen} />

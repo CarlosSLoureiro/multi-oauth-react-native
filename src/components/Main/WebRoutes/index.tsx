@@ -1,31 +1,25 @@
 import { APP_NAME } from '@env';
 
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { BrowserRouter, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 
 import AppContext from '@contexts/AppContext';
+import { ScreenInterface } from '@contexts/AppContext/types';
 
 import { screens } from '@screens/config';
 
 import BottonMenu from '../BottonMenu';
 
 const RoutesScreen = () => {
-  const { currentScreen, setScreen, addAlert } = useContext(AppContext);
+  const { appNavigation } = useContext(AppContext);
+
   const navigate = useNavigate();
   const location = useLocation();
 
-  useEffect(() => {
-    if (currentScreen) {
-      document.title = `${currentScreen.name} — ${APP_NAME}`;
-
-      if (location.pathname !== currentScreen.route) {
-        navigate(currentScreen.route);
-      }
-    } else {
-      setScreen(`Home`);
-      addAlert({ status: `warning`, message: `Page not found` }, 10000);
-    }
-  }, [currentScreen]);
+  appNavigation.current = (screen: ScreenInterface): void => {
+    document.title = `${screen.name} — APP_NAME`;
+    navigate(screen.route);
+  };
 
   return (
     <>

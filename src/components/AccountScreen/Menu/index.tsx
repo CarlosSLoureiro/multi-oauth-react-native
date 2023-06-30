@@ -1,16 +1,15 @@
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { Box, Button, HStack, Icon, Stagger, Text, useDisclose, View } from 'native-base';
 
 import AppContext from '@contexts/AppContext';
 
-import { MenuItems } from './types';
+import { MenuItems, MenuProps } from './types';
 import { containerBoxProps, menuButtons, settingsButton } from './styles';
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-export default function AccountMenu () {
-  const { setScreen, updateUser, currentScreen } = useContext(AppContext);
-  const { isOpen, onToggle, onClose } = useDisclose();
+export default function AccountMenu ({isOpen, setIsOpen}: MenuProps) {
+  const { setScreen, updateUser } = useContext(AppContext);
 
   const menuItems: MenuItems[] = [
     {
@@ -29,14 +28,10 @@ export default function AccountMenu () {
     }
   ];
 
-  useEffect(() => {
-    onClose();
-  }, [currentScreen]);
-
   return (
     <Box {...containerBoxProps}>
       <HStack {...settingsButton.hStack}>
-        <Button {...settingsButton.button} onPress={onToggle}>
+        <Button {...settingsButton.button} onPress={() => { setIsOpen(!isOpen); }}>
           <View {...settingsButton.view}>
             {isOpen && <Text {...settingsButton.text}>Settings</Text>}
             <Icon {...settingsButton.icon} as={<MaterialCommunityIcons name='cogs' />}/>
