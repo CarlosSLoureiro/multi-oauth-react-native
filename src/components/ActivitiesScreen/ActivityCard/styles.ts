@@ -53,7 +53,12 @@ export const cardStyles: {
     }
   },
   time: {
-    color: `indigo.300`
+    _light: {
+      color: `indigo.500`
+    },
+    _dark: {
+      color: `indigo.300`
+    }
   }
 };
 

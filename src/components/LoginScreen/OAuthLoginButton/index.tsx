@@ -19,7 +19,7 @@ export default function OAuthLoginButton ({provider, icon}: OAuthLoginButtonProp
 
   const onPress = async () => {
     const params = {
-      'isDevelopment': __DEV__,
+      'isDevelopment': __DEV__ && Constants.manifest?.debuggerHost !== undefined,
       'debuggerHost': Platform.OS === `web` ? window.location.origin : Constants.manifest?.debuggerHost,
       'webScreenRoute': Platform.OS === `web` && currentScreen ? currentScreen.route : undefined
     };
