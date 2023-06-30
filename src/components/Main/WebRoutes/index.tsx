@@ -11,7 +11,7 @@ import { screens } from '@screens/config';
 import BottonMenu from '../BottonMenu';
 
 const RoutesScreen = () => {
-  const { currentScreen } = useContext(AppContext);
+  const { currentScreen, setScreen, addAlert } = useContext(AppContext);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -22,6 +22,9 @@ const RoutesScreen = () => {
       if (location.pathname !== currentScreen.route) {
         navigate(currentScreen.route);
       }
+    } else {
+      setScreen(`Home`);
+      addAlert({ status: `warning`, message: `Page not found` }, 10000);
     }
   }, [currentScreen]);
 
