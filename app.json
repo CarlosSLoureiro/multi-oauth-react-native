@@ -20,7 +20,7 @@
       "supportsTablet": true,
       "infoPlist": {
         "LSApplicationQueriesSchemes": [
-          "myapptest"
+          "multioauthapp"
         ]
       },
       "bundleIdentifier": "xyz.carlosloureiro.multioauth"
@@ -35,7 +35,7 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "scheme": "myapptest",
+    "scheme": "multioauthapp",
     "extra": {
       "eas": {
         "projectId": "04262026-d702-4aa5-bdc9-48a51a85c4c2"
