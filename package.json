@@ -1,7 +1,6 @@
 {
   "name": "multi-oauth-react-native",
   "version": "1.0.0",
-  "main": "node_modules/expo/AppEntry.js",
   "keywords": [
     "react",
     "expo",
@@ -13,12 +12,17 @@
   "author": "Carlos Loureiro",
   "scripts": {
     "start": "expo start --clear",
+    "start:client": "expo start --dev-client",
     "android": "expo start --android",
+    "android:client": "expo run:android",
     "ios": "expo start --ios",
+    "ios:client": "expo run:ios",
     "web": "expo start --web",
-    "eject": "expo eject",
+    "eject": "npx expo prebuild",
     "test": "tsc --noEmit && eslint --ignore-path .gitignore . --fix --quiet",
-    "build": "expo export:web"
+    "build:web": "expo export:web",
+    "build:ios": "react-native run-ios --configuration=release",
+    "build:android": "react-native run-android --variant=release"
   },
   "dependencies": {
     "@expo/vector-icons": "^13.0.0",
@@ -28,7 +32,7 @@
     "@react-navigation/native": "^6.1.6",
     "@types/crypto-js": "^4.1.1",
     "date-fns": "^2.30.0",
-    "expo": "^48.0.0",
+    "expo": "~48.0.18",
     "expo-constants": "^14.2.1",
     "expo-linking": "^4.0.1",
     "expo-navigation-bar": "~2.1.1",
@@ -44,7 +48,8 @@
     "react-native-screens": "~3.20.0",
     "react-native-svg": "13.4.0",
     "react-native-web": "~0.18.10",
-    "react-router-dom": "^6.11.2"
+    "react-router-dom": "^6.11.2",
+    "expo-splash-screen": "~0.18.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
