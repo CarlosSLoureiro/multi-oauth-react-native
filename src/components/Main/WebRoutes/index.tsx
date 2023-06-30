@@ -2,7 +2,6 @@ import { APP_NAME } from '@env';
 
 import { useContext, useEffect } from 'react';
 import { BrowserRouter, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import Constants from "expo-constants";
 
 import AppContext from '@contexts/AppContext';
 
