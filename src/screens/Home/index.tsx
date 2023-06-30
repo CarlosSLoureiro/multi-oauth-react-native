@@ -1,5 +1,6 @@
 import { useContext,useEffect,useState } from 'react';
 import { Platform } from 'react-native';
+import Constants from 'expo-constants';
 import { Center, Divider, Heading, HStack, Link, Text, Tooltip } from "native-base";
 
 import AppContext from '@contexts/AppContext';
@@ -42,7 +43,7 @@ export default function HomeScreen() {
         <Header>
           <Heading size="lg">{firstMessage}</Heading>
           <Heading size="xs" style={{ paddingBottom: 10 }}>
-            Welcome to Multi OAuth Example App
+            Welcome to Multi OAuth Example App { Constants.manifest?.version ?? `` }
           </Heading>
           <Text>
             Note that it has created with <Text bold>React Native</Text>! <Tooltip label="React Native"><Link _web={{position:`absolute`}} href="https://reactnative.dev/" isExternal><ReactIcon size="20px" color='#003cff'/></Link></Tooltip>
