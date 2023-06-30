@@ -21,8 +21,8 @@
     "eject": "npx expo prebuild",
     "test": "tsc --noEmit && eslint --ignore-path .gitignore . --fix --quiet",
     "build:web": "expo export:web",
-    "build:ios": "react-native run-ios --configuration=release",
-    "build:android": "react-native run-android --variant=release"
+    "build:ios": "react-native run-ios --configuration=Release",
+    "build:android": "react-native run-android --variant=Release"
   },
   "dependencies": {
     "@expo/vector-icons": "^13.0.0",
