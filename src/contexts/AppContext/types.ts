@@ -1,9 +1,6 @@
 import { ComponentType, MutableRefObject } from "react";
-import { Location, NavigateFunction } from "react-router-dom";
 
 import { AlertProps } from "@components/Main/Alert/types";
-
-import { NavigationContainerRefWithCurrent } from "@react-navigation/native";
 
 export interface UserInterface {
   id: number;
