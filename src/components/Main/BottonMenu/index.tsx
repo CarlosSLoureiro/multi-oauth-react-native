@@ -12,7 +12,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export default function BottonMenu() {
   const [selected, setSelected] = useState<string>();
-  const { currentScreen, setScreen } = useContext(AppContext);
+  const { activeScreen, setScreen } = useContext(AppContext);
 
   const items: MenuItemsInterface[] = [
     {
@@ -54,13 +54,13 @@ export default function BottonMenu() {
   ];
 
   useEffect(() => {
-    if (currentScreen) {
-      const isScreenInMenu = items.findIndex((item) => item.name === currentScreen.name) !== -1;
+    if (activeScreen.current) {
+      const isScreenInMenu = items.findIndex((item) => item.name === activeScreen.current.name) !== -1;
       if (isScreenInMenu) {
-        setSelected(currentScreen.name);
+        setSelected(activeScreen.current.name);
       }
     }
-  }, [currentScreen]);
+  }, [activeScreen.current]);
 
   return (
     <Box {...boxProps}>

@@ -9,8 +9,9 @@ import BaseScreen from "@components/BaseScreen";
 import ListActivitiesRequest from "@remote/ListActivities";
 import { ResponseActivityModel } from "@remote/ListActivities/types";
 
+
 export default function ActivitiesScreen() {
-  const { addAlert, currentScreen } = useContext(AppContext);
+  const { addAlert } = useContext(AppContext);
   const [ isLoading, setIsLoading ] = useState(true);
   const [ page, setPage ] = useState<number>();
   const [ list, setList ] = useState<Array<ResponseActivityModel>>([]);
@@ -53,17 +54,6 @@ export default function ActivitiesScreen() {
     }
   }, [page]);
 
-  useEffect(() => {
-    if (currentScreen) {
-      if (currentScreen.name === `Activities`) {
-        setPage(0);
-      } else {
-        setPage(undefined);
-        setList([]);
-      }
-    }
-  }, [currentScreen]);
-
   const renderList = () => {
     if (isLoading && list.length <= 0) {
       return (
@@ -91,8 +81,19 @@ export default function ActivitiesScreen() {
       }
     }
   };
+
   return (
-    <BaseScreen enableScroll onScrollToEnd={onScrollToEnd}>
+    <BaseScreen
+      enableScroll
+      onFocus={() => {
+        setPage(0);
+      }}
+      onUnfocus={() => {
+        setPage(undefined);
+        setList([]);
+      }}
+      onScrollToEnd={onScrollToEnd}
+    >
       { renderList() }
     </BaseScreen>
   );

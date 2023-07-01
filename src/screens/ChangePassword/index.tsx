@@ -9,7 +9,7 @@ import ChangePasswordRequest from "@remote/ChangePassword";
 import { RequestChangePasswordData } from "@remote/ChangePassword/types";
 
 export default function ChangePasswordScreen () {
-  const { setScreen, currentScreen, updateUser, user, addAlert } = useContext(AppContext);
+  const { setScreen, updateUser, user, addAlert } = useContext(AppContext);
 
   const [isRequesting, setIsRequesting] = useState(false);
   const [feildWithErrors, setFieldsWithErrors] = useState<string[]>([]);
@@ -55,12 +55,8 @@ export default function ChangePasswordScreen () {
     setFieldsWithErrors([]);
   }, [formData]);
 
-  useEffect(() => {
-    setFormData({} as RequestChangePasswordData);
-  }, [currentScreen]);
-
   return (
-    <BaseScreen>
+    <BaseScreen onUnfocus={() => { setFormData({} as RequestChangePasswordData); }}>
       <Center flex={1} px="3">
         <Center w="100%">
           <Box safeArea p="2" py="8" w="90%" maxW="290">

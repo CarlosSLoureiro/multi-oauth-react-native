@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { NativeScrollEvent, NativeSyntheticEvent, Platform } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useColorMode, View } from "native-base";
@@ -6,7 +6,9 @@ import { useColorMode, View } from "native-base";
 import { BaseScreenProps } from './types';
 import { outerViewProps, viewProps } from './styles';
 
-export default function BaseScreen({ style = {}, enableScroll = false, onScrollToEnd = undefined, children }: BaseScreenProps) {
+import { useFocusEffect } from "@react-navigation/native";
+
+export default function BaseScreen({ style = {}, enableScroll = false, onScrollToEnd = undefined, onFocus = undefined, onUnfocus = undefined, children }: BaseScreenProps) {
   const { colorMode } = useColorMode();
   const [ scrollable, setScrollable ] = useState(enableScroll);
 
@@ -21,6 +23,22 @@ export default function BaseScreen({ style = {}, enableScroll = false, onScrollT
       setScrollable(false);
     }
   };
+
+  if (Platform.OS !== `web`) {
+    useFocusEffect(
+      useCallback(() => {
+        if (onFocus) {
+          onFocus();
+        }
+
+        return onUnfocus;
+      }, [])
+    );
+  } else if (onFocus) {
+    useEffect(() => {
+      onFocus();
+    }, []);
+  }
 
   useEffect(() => {
     if (Platform.OS !== `web`) return;

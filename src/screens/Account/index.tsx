@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Center } from "native-base";
 
 import AppContext from "@contexts/AppContext";
@@ -9,14 +9,19 @@ import BaseScreen from "@components/BaseScreen";
 
 export default function GenericAccountScreen() {
   const { user } = useContext(AppContext);
+  const [ isOpen, setIsOpen ] = useState(false);
+
+  const onClose = () => {
+    setIsOpen(false);
+  };
 
   return (
-    <BaseScreen>
+    <BaseScreen onFocus={onClose} onUnfocus={onClose}>
       <Center flex={1} px="3">
         <Center w="100%">
           {user && <ProfileCard user={user} />}
         </Center>
-        <AccountMenu />
+        <AccountMenu isOpen={isOpen} setIsOpen={setIsOpen} />
       </Center>
     </BaseScreen>
   );
