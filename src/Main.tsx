@@ -21,7 +21,7 @@ declare module "native-base" {
   type ICustomTheme = MyThemeType;
 }
 
-export default function App() {
+export default function Main() {
   const { setColorMode } = useColorMode();
   const { addAlert, updateUser, externalData } = useContext(AppContext);
 
