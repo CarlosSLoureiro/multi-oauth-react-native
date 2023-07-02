@@ -4,7 +4,7 @@ import TestContext from '@contexts/TestContext';
 
 import OAuthLoginButton from './index';
 
-import { act, fireEvent, render } from '@testing-library/react-native';
+import { fireEvent, render } from '@testing-library/react-native';
 import QueryString from 'query-string';
 
 const component = (provider:string) => {
@@ -30,9 +30,7 @@ describe(`OAuthLoginButton`, () => {
 
     const oauthButton = getByTestId(`oauth-button`);
 
-    act(() => {
-      fireEvent.press(oauthButton);
-    });
+    fireEvent.press(oauthButton);
 
     expect(openURLMock).toHaveBeenCalledTimes(1);
     expect(openURLMock).toHaveBeenCalledWith(expectedURL);
