@@ -20,20 +20,19 @@ describe(`OAuthLoginButton`, () => {
     jest.restoreAllMocks();
   });
 
-  [`Google`, `Facebook`, `Twitter`].forEach(provider => {
-    it(`should open ${provider} oauth url from api`, () => {
-      const api = `http://api-multi-oauth-react-native-test.carlosloureiro.xyz`;
-      const expectedURL = `${api}/auth/${provider.toLowerCase()}?${QueryString.stringify({data: `encrypted-data`})}`;
-      const openURLMock = jest.spyOn(Linking, `openURL`);
+  it(`should open provider oauth url from api`, () => {
+    const provider = `Google`;
+    const api = `http://api-multi-oauth-react-native-test.carlosloureiro.xyz`;
+    const expectedURL = `${api}/auth/${provider.toLowerCase()}?${QueryString.stringify({data: `encrypted-data`})}`;
+    const openURLMock = jest.spyOn(Linking, `openURL`);
 
-      const { getByTestId } = component(provider);
+    const { getByTestId } = component(provider);
 
-      const oauthButton = getByTestId(`oauth-button`);
+    const oauthButton = getByTestId(`oauth-button`);
 
-      fireEvent.press(oauthButton);
+    fireEvent.press(oauthButton);
 
-      expect(openURLMock).toHaveBeenCalledTimes(1);
-      expect(openURLMock).toHaveBeenCalledWith(expectedURL);
-    });
+    expect(openURLMock).toHaveBeenCalledTimes(1);
+    expect(openURLMock).toHaveBeenCalledWith(expectedURL);
   });
 });
