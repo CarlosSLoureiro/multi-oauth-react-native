@@ -31,6 +31,7 @@ export default function OAuthLoginButton ({provider, icon}: OAuthLoginButtonProp
   return (
     <Tooltip label={`Continue with ${provider}`}>
       <Button
+        testID='oauth-button'
         mt="2"
         py="2"
         _web={{
