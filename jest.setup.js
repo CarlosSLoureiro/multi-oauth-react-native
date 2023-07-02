@@ -3,6 +3,6 @@ jest.mock(`@react-native-async-storage/async-storage`, () =>
 );
 
 jest.mock(`query-string`, () => ({
-  parse: jest.fn(),
-  stringify: jest.fn()
+  parse: jest.fn(() => `parsed-string`),
+  stringify: jest.fn(() => `stringied-string`)
 }));
