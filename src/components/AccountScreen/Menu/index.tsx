@@ -31,7 +31,7 @@ export default function AccountMenu ({isOpen, setIsOpen}: MenuProps) {
   return (
     <Box {...containerBoxProps}>
       <HStack {...settingsButton.hStack}>
-        <Button {...settingsButton.button} onPress={() => { setIsOpen(!isOpen); }}>
+        <Button {...settingsButton.button} onPress={() => { setIsOpen(!isOpen); }} testID='settings-button'>
           <View {...settingsButton.view}>
             {isOpen && <Text {...settingsButton.text}>Settings</Text>}
             <Icon {...settingsButton.icon} as={<MaterialCommunityIcons name='cogs' />}/>
