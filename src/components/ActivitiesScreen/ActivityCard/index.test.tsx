@@ -35,19 +35,31 @@ describe(`ActivityCard`, () => {
     expect(getByText(activityProp.message)).toBeTruthy();
   });
 
-  it(`must render user name and activity message`, () => {
+  it(`must render activity date in specific format`, () => {
     const { getByText } = component({activity: activityProp});
 
     const formattedDate = format(new Date(activityProp.date), `EEE MMM dd yyyy HH:mm:ss`);
     expect(getByText(formattedDate)).toBeTruthy();
   });
 
-  it(`must render user name and activity message`, () => {
+  it(`must render user picture if it is not null`, () => {
     const { getByTestId } = component({activity: activityProp});
 
-    const imageElement = getByTestId(`user-picture`);
-    expect(imageElement.props.source).toEqual({
+    const pictureElement = getByTestId(`user-picture`);
+    expect(pictureElement.props.source).toEqual({
       uri: activityProp.user.picture,
+    });
+  });
+
+  it(`must render default picture if user picture is null`, () => {
+    const defaultPicture = `https://img.freepik.com/free-vector/hacker-operating-laptop-cartoon-icon-illustration-technology-icon-concept-isolated-flat-cartoon-style_138676-2387.jpg?w=360`;
+    activityProp.user.picture = null;
+
+    const { getByTestId } = component({activity: activityProp});
+
+    const pictureElement = getByTestId(`user-picture`);
+    expect(pictureElement.props.source).toEqual({
+      uri: defaultPicture
     });
   });
 });
