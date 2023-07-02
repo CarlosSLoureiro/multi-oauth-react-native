@@ -6,7 +6,7 @@ export interface UserInterface {
   id: number;
   name: string;
   email: string;
-  picture: string;
+  picture: string | null;
   token: string;
 }
 
