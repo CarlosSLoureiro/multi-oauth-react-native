@@ -13,6 +13,7 @@ export default function ActivityCard ({ activity }: ActivityCardProps) {
         <View {...cardStyles.profile}>
           <Image
             alt='User Picture'
+            testID="user-picture"
             source={{ uri: activity.user.picture }}
             style={{ flex: 1, width: undefined, height: undefined }}
             resizeMode="cover"
