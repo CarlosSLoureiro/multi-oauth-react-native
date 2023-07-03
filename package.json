@@ -20,7 +20,7 @@
     "web": "expo start --web",
     "eject": "npx expo prebuild",
     "test": "tsc --noEmit && eslint --ignore-path .gitignore . --fix --quiet && npm run jest",
-    "jest": "jest --clearCache && jest",
+    "jest": "jest --clearCache && jest --silent",
     "build:web": "expo export:web",
     "build:ios": "react-native run-ios --configuration=Release",
     "build:android": "react-native run-android --variant=Release"

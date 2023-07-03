@@ -22,8 +22,7 @@ describe(`OAuthLoginButton`, () => {
     jest.restoreAllMocks();
   });
 
-  it(`should open provider oauth url from api`, () => {
-    const provider = `Google`;
+  const testWithProvider = (provider: string) => (() => {
     const expectedURL = `${API_DOMAIN}/auth/${provider.toLowerCase()}?${QueryString.stringify({data: `encrypted-data`})}`;
     const openURLMock = jest.spyOn(Linking, `openURL`);
 
@@ -35,5 +34,9 @@ describe(`OAuthLoginButton`, () => {
 
     expect(openURLMock).toHaveBeenCalledTimes(1);
     expect(openURLMock).toHaveBeenCalledWith(expectedURL);
+  });
+
+  [`Google`, `Facebook`, `Twitter`].forEach(provider => {
+    it(`should open ${provider} oauth url from api`, testWithProvider(provider));
   });
 });
