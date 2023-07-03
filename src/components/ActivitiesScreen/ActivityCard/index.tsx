@@ -7,6 +7,8 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { format } from 'date-fns';
 
 export default function ActivityCard ({ activity }: ActivityCardProps) {
+  const defaultPicture = `https://img.freepik.com/free-vector/hacker-operating-laptop-cartoon-icon-illustration-technology-icon-concept-isolated-flat-cartoon-style_138676-2387.jpg?w=360`;
+
   return (
     <Center w="100%">
       <HStack {...cardStyles.cardStack}>
@@ -14,7 +16,7 @@ export default function ActivityCard ({ activity }: ActivityCardProps) {
           <Image
             alt='User Picture'
             testID="user-picture"
-            source={{ uri: activity.user.picture }}
+            source={{ uri: activity.user.picture !== null ? activity.user.picture : defaultPicture }}
             style={{ flex: 1, width: undefined, height: undefined }}
             resizeMode="cover"
           />
