@@ -1,3 +1,5 @@
+import { API_DOMAIN } from '@env';
+
 import * as Linking from 'expo-linking';
 
 import TestContext from '@contexts/TestContext';
@@ -22,8 +24,7 @@ describe(`OAuthLoginButton`, () => {
 
   it(`should open provider oauth url from api`, () => {
     const provider = `Google`;
-    const api = `http://api-multi-oauth-react-native-test.carlosloureiro.xyz`;
-    const expectedURL = `${api}/auth/${provider.toLowerCase()}?${QueryString.stringify({data: `encrypted-data`})}`;
+    const expectedURL = `${API_DOMAIN}/auth/${provider.toLowerCase()}?${QueryString.stringify({data: `encrypted-data`})}`;
     const openURLMock = jest.spyOn(Linking, `openURL`);
 
     const { getByTestId } = component(provider);
