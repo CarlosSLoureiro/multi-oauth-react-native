@@ -14,7 +14,7 @@ import QueryString from 'query-string';
 export default function OAuthLoginButton ({provider, icon}: OAuthLoginButtonProps) {
   const onPress = async () => {
     const params = {
-      'isDevelopment': __DEV__ && Constants.manifest?.debuggerHost !== undefined,
+      'isDevelopment': Platform.OS === `web` ? __DEV__ : (__DEV__ && Constants.manifest?.debuggerHost !== undefined),
       'debuggerHost': Platform.OS === `web` ? window.location.origin : Constants.manifest?.debuggerHost,
       'webScreenRoute': Platform.OS === `web` ? window.location.pathname : undefined
     };
