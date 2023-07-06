@@ -4,8 +4,11 @@ import { Box, Button, Center, FormControl, Heading, HStack, Input, Link, Pressab
 import AppContext from "@contexts/AppContext";
 
 import BaseScreen from "@components/BaseScreen";
+import DiscordIcon from "@components/Icons/DiscordIcon";
 import FacebookIcon from "@components/Icons/FacebookIcon";
+import GitHubIcon from "@components/Icons/GitHubIcon";
 import GoogleIcon from "@components/Icons/GoogleIcon";
+import LinkedInIcon from "@components/Icons/LinkedInIcon";
 import TwitterIcon from "@components/Icons/TwitterIcon";
 import OAuthLoginButton from "@components/LoginScreen/OAuthLoginButton";
 
@@ -69,12 +72,26 @@ export default function LoginScreen () {
                 icon={<GoogleIcon size="25px"/>}
               />
               <OAuthLoginButton
+                provider="GitHub"
+                icon={<GitHubIcon size="25px"/>}
+              />
+              <OAuthLoginButton
+                provider="LinkedIn"
+                icon={<LinkedInIcon size="28px"/>}
+              />
+            </HStack>
+            <HStack space="3" justifyContent="center" pt={1}>
+              <OAuthLoginButton
+                provider="Discord"
+                icon={<DiscordIcon size="28px"/>}
+              />
+              <OAuthLoginButton
                 provider="Facebook"
                 icon={<FacebookIcon size="28px"/>}
               />
               <OAuthLoginButton
                 provider="Twitter"
-                icon={<TwitterIcon size="32px"/>}
+                icon={<TwitterIcon size="28px"/>}
               />
             </HStack>
             <Heading mt="10" _dark={{
