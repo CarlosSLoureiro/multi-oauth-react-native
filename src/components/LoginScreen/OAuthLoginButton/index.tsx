@@ -11,8 +11,12 @@ import { OAuthLoginButtonProps } from "./types";
 
 import QueryString from 'query-string';
 
-export default function OAuthLoginButton ({provider, icon}: OAuthLoginButtonProps) {
+export default function OAuthLoginButton ({provider, icon, setClickedProvider}: OAuthLoginButtonProps) {
   const onPress = async () => {
+    if (setClickedProvider) {
+      setClickedProvider({provider, icon});
+    }
+
     const params = {
       'isDevelopment': Platform.OS === `web` ? __DEV__ : (__DEV__ && Constants.manifest?.debuggerHost !== undefined),
       'debuggerHost': Platform.OS === `web` ? window.location.origin : Constants.manifest?.debuggerHost,
