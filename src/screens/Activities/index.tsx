@@ -91,6 +91,7 @@ export default function ActivitiesScreen() {
       onUnfocus={() => {
         setPage(undefined);
         setList([]);
+        setIsFullList(false);
       }}
       onScrollToEnd={onScrollToEnd}
     >
