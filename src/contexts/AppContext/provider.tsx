@@ -102,7 +102,7 @@ export default function AppContextProvider ({ children }: { children: ReactEleme
 
   const executeExternalData = (value: string) => {
     try {
-      const searchParams = QueryString.parse(value);
+      const searchParams = QueryString.parse(value.split(`#`)[0]);
       const data = searchParams.data ? String(searchParams.data) : null;
 
       if (data) {
