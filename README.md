@@ -4,7 +4,7 @@
 
 **Multi OAuth Example App** é um aplicativo cross-platform desenvolvido com [React Native 0.71.8](https://reactnative.dev) onde o usuário pode se cadastrar ou realizar uma autenticação com diferentes provedores oauth para se cadastrar ou logar na mesma conta de usuário na aplicação baseado no email oauth do provedor (Google, Twitter e etc). Também é possível alterar a senha e listar atividades de autenticação de outros usuários.
 
-`VIDEO`
+https://github.com/CarlosSLoureiro/multi-oauth-react-native/assets/19580424/688b8d31-5555-4117-8d33-f6c25c229e6a
 
 Note que essa aplicação foi desenvolvida baseado em um contexto mais ou menos de como é praticado em um cenário real: com um fluxo de deploy automatizado para o servidor onde a aplicação está hospedada. Nesse caso, usando *GitHub Actions* a cada criação de tag no repositório.
 
@@ -20,6 +20,7 @@ Além disso, essa aplicação é gerenciada através de uma API externa cujo rep
 - [x] Testes unitários com *Jest*
 - [x] Suporte a modo escuro
 - [x] Compratível com **Android**, **iOS** e [**WEB**](https://multi-oauth-react-native.carlosloureiro.xyz/)
+
 
 
 # 💻 Pré-requisitos
