@@ -1,4 +1,4 @@
-import { cloneElement, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AppState, AppStateStatus } from "react-native";
 import { Box, Button, Center, FormControl, Heading, HStack, Input, Pressable, Text, VStack } from "native-base";
 
@@ -42,6 +42,12 @@ export default function LoginScreen () {
       }, 5000);
     }
   }, [appState]);
+
+  useEffect(() => {
+    if (user) {
+      setClickedProvider(undefined);
+    }
+  }, [user]);
 
   useEffect(() => {
     AppState.addEventListener(`change`, handleAppStateChange);
