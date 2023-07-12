@@ -72,6 +72,7 @@ describe(`AccountMenu`, () => {
 
       fireEvent.press(changePasswordButton);
 
+      expect(contextMockProps.setScreen).toHaveBeenCalledTimes(1);
       expect(contextMockProps.setScreen).toHaveBeenCalledWith(`Change Password`);
     });
 
@@ -84,6 +85,7 @@ describe(`AccountMenu`, () => {
 
       fireEvent.press(logoutButton);
 
+      expect(contextMockProps.updateUser).toHaveBeenCalledTimes(1);
       expect(contextMockProps.updateUser).toHaveBeenCalledWith(undefined);
     });
   });
