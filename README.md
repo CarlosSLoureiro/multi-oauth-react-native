@@ -19,7 +19,9 @@ Além disso, essa aplicação é gerenciada através de uma API externa cujo rep
 - [x] Utilizando *NativeBase* para os componentes
 - [x] Testes unitários com *Jest*
 - [x] Suporte a modo escuro
-- [x] Compratível com **Android**, **iOS** e [**WEB**](https://multi-oauth-react-native.carlosloureiro.xyz/)
+- [x] Compatível com **Android**, **iOS** e [**WEB**](https://multi-oauth-react-native.carlosloureiro.xyz/)
+- [x] Fluxo de deploy da versão WEB automatizado com *GitHub Actions*
+
 
 
 
